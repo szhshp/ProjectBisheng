@@ -17,14 +17,14 @@ describe('Remove Blank Lines At The End', () => {
 
 describe('Replace Punctuations', () => {
   test('Replace Chinese Punctuations 1', () => {
-    const before = '这里是一段中文，带着中文符号。测试文本！测试文本？'
-    const after = '这里是一段中文,带着中文符号.测试文本!测试文本?'
+    const before = '这里是一段中文，带着中文符号。这里是一段中文！带着中文符号？'
+    const after = '这里是一段中文,带着中文符号.这里是一段中文!带着中文符号?'
     expect(replacePunctuations(before)).toEqual(after)
   })
 
   test('Replace Chinese Punctuations 2', () => {
-    const before = '这里是一段中文(带着)括号'
-    const after = '这里是一段中文 (带着) 括号'
+    const before = '这里是一段中文带着（全角）括号'
+    const after = '这里是一段中文带着(全角)括号'
     expect(replacePunctuations(before)).toEqual(after)
   })
 })
