@@ -1,4 +1,4 @@
-import { Language } from '@src/formatters/types'
+import { Language } from '@src/types'
 
 /**
  * @name removeBlankLinesAtTheEnd
