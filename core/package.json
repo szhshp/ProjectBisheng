@@ -1,13 +1,13 @@
 {
   "name": "bisheng-formatter-core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "author": "szhshp",
   "license": "MIT",
   "repository": "https://github.com/szhielelp/bisheng",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
-    "start": "node dist/server.js",
+    "start": "tsc ./src/index.ts",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
     "watch": "jest --watch",
@@ -38,8 +38,5 @@
     "ts-node-dev": "^1.0.0-pre.49",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.9.5"
-  },
-  "dependencies": {
-    "express": "^4.17.1"
   }
 }
