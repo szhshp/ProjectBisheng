@@ -1,4 +1,4 @@
-import { Language } from '@src/types'
+import { Language } from '../types'
 
 /**
  * @name removeBlankLinesAtTheEnd

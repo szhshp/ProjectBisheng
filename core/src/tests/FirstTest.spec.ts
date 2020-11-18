@@ -1,4 +1,4 @@
-import { format } from '@src/formatters'
+import { format } from '../formatters'
 
 describe('全角替换', () => {
   [
