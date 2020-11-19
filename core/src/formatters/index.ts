@@ -1,4 +1,4 @@
-const DEBUG = false
+const DEBUG = true
 
 /**
  * @name removeBlankLinesAtTheEnd
@@ -35,11 +35,12 @@ export const replacePunctuations = (
   const CHINESE_CHARS = '\\u4e00-\\u9fa5\\u3040-\\u30FF'
   const ALPHABETICAL_AND_NUM = 'a-zA-Z0-9'
 
-  const replaceList: [string, string][] = [
-    ['\\[([^\\]]+)\\][（(]([^)]+)[）)]', '[$1]($2)'],
-    ['(\\*\\*.*?\\*\\*)', ' $1 '],
-    /* Remove multiple duplicated punctuations */
-    ...[
+  const replaceSchema: {
+    [key: string]: [string, string][];
+  } = {
+    linksFormat: [['\\[([^\\]]+)\\][（(]([^)]+)[）)]', '[$1]($2)']],
+    boldTextBlock: [['(\\*\\*.*?\\*\\*)', ' $1 ']],
+    duplicatedPunctuations: [
       ['。', Array(config.ellipsisCount).fill('.').join('')],
       ['\\.', Array(config.ellipsisCount).fill('.').join('')],
       ['！', '!!!'],
@@ -48,10 +49,10 @@ export const replacePunctuations = (
       ['\\?', '???'],
       ['，', '，']
     ].map<[string, string]>(([toReplace, replaceValue]) => [
-      `${toReplace}{3,}`,
-      replaceValue
+        `${toReplace}{3,}`,
+        replaceValue
     ]),
-    ...[
+    fullWidthChars: [
       ['，', ', '],
       ['；', '; '],
       ['！', '! '],
@@ -134,19 +135,25 @@ export const replacePunctuations = (
       `${cnSign}\\s*`,
       `${enSign}`
     ]),
-    [
-      `([${ALPHABETICAL_AND_NUM}\\]!;\\,\\.\\:\\?\\)])([*]*[${CHINESE_CHARS}])`,
-      '$1 $2'
-    ],
-    [`([${CHINESE_CHARS}][*]*)([${ALPHABETICAL_AND_NUM}\\[\\(])`, '$1 $2']
-  ]
+    chineseCharAndAlphabeticalChar: [
+      [
+        `([${ALPHABETICAL_AND_NUM}\\]!;\\,\\.\\:\\?\\)])([*]*[${CHINESE_CHARS}])`,
+        '$1 $2'
+      ],
+      [`([${CHINESE_CHARS}][*]*)([${ALPHABETICAL_AND_NUM}\\[\\(])`, '$1 $2']
+    ]
+  }
 
-  replaceList.forEach(([regexStr, replace]) => {
-    const regex = new RegExp(regexStr, 'g')
-    content = content.replace(regex, replace)
+  Object.keys(replaceSchema).forEach(key => {
     if (DEBUG) {
-      console.log(regexStr, replace)
-      console.log('content: ', content)
+      console.log('--------------Format', key)
+    }
+    replaceSchema[key].forEach(([regexStr, replace]) => {
+      const regex = new RegExp(regexStr, 'g')
+      content = content.replace(regex, replace)
+    })
+    if (DEBUG) {
+      console.log('--------------content: ', content)
     }
   })
 
