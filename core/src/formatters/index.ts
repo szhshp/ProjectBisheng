@@ -40,8 +40,8 @@ export const replacePunctuations = (
 
     /* Remove multiple duplicated punctuations */
     ...[
-      ['。', '......'],
-      ['\\.', '......'],
+      ['。', '...'],
+      ['\\.', '...'],
       ['！', '!!!'],
       ['\\!', '!!!'],
       ['？', '???'],

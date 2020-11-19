@@ -70,9 +70,19 @@ describe('符号替换', () => {
 describe('文本混排', () => {
   [
     {
-      desc: '中英文之间添加空格',
+      desc: '中英文之间添加空格1',
       before: '这里是一段A中文和B英文混C排的文本',
       after: '这里是一段 A 中文和 B 英文混 C 排的文本'
+    },
+    {
+      desc: '中英文之间添加空格2',
+      before: '对数据表Table插入对应的数据Data',
+      after: '对数据表 Table 插入对应的数据 Data'
+    },
+    {
+      desc: '中英文之间带有粗体符号, 则空格应该添加在符号外侧',
+      before: '如果**Table中不存在, 将Data中存在的数据X**插入 Table',
+      after: '如果 **Table 中不存在, 将 Data 中存在的数据 X** 插入 Table'
     },
     {
       desc: '替换全角符号+中英文之间添加空格',
