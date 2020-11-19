@@ -1,2 +1,4 @@
+/core/dist
 node_modules
+/vscode-extension/dist
 build
