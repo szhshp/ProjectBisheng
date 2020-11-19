@@ -1,13 +1,13 @@
 {
   "name": "bisheng-formatter-core",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "author": "szhshp",
   "license": "MIT",
   "repository": "https://github.com/szhielelp/bisheng",
   "scripts": {
-    "prepublish": "tsc && yarn run build",
+    "prepublish": "rimraf dist && tsc && yarn run build",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "start": "tsc ./src/index.ts",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
