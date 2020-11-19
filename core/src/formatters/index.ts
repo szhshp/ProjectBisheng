@@ -1,4 +1,4 @@
-import { Language } from '../types'
+const DEBUG = false
 
 /**
  * @name removeBlankLinesAtTheEnd
@@ -15,8 +15,9 @@ export const removeBlankLinesAtTheEnd = (content: string): string => {
  */
 export const replacePunctuations = (
   content: string,
-  from: Language = Language.cn,
-  to: Language = Language.en
+  config = {
+    ellipsisCount: 3
+  }
 ): string => {
   // [/([\u4e00-\u9fa5\u3040-\u30FF])\.($|\s*)/g, "$1。"],
   // [/([\u4e00-\u9fa5\u3040-\u30FF]),\s*/g, "$1，"],
@@ -35,13 +36,12 @@ export const replacePunctuations = (
   const ALPHABETICAL_AND_NUM = 'a-zA-Z0-9'
 
   const replaceList: [string, string][] = [
-    [`([${CHINESE_CHARS}][*]*)([${ALPHABETICAL_AND_NUM}\\[\\(])`, '$1 $2'],
     ['\\[([^\\]]+)\\][（(]([^)]+)[）)]', '[$1]($2)'],
-
+    ['(\\*\\*.*?\\*\\*)', ' $1 '],
     /* Remove multiple duplicated punctuations */
     ...[
-      ['。', '...'],
-      ['\\.', '...'],
+      ['。', Array(config.ellipsisCount).fill('.').join('')],
+      ['\\.', Array(config.ellipsisCount).fill('.').join('')],
       ['！', '!!!'],
       ['\\!', '!!!'],
       ['？', '???'],
@@ -130,7 +130,6 @@ export const replacePunctuations = (
       ['ｙ', 'y'],
       ['ｚ', 'z'],
       ['＠', '@']
-
     ].map<[string, string]>(([cnSign, enSign]) => [
       `${cnSign}\\s*`,
       `${enSign}`
@@ -139,15 +138,16 @@ export const replacePunctuations = (
       `([${ALPHABETICAL_AND_NUM}\\]!;\\,\\.\\:\\?\\)])([*]*[${CHINESE_CHARS}])`,
       '$1 $2'
     ],
-    [
-      `([${CHINESE_CHARS}][*]*)([${ALPHABETICAL_AND_NUM}\\[\\(])`,
-      '$1 $2'
-    ]
+    [`([${CHINESE_CHARS}][*]*)([${ALPHABETICAL_AND_NUM}\\[\\(])`, '$1 $2']
   ]
 
   replaceList.forEach(([regexStr, replace]) => {
     const regex = new RegExp(regexStr, 'g')
     content = content.replace(regex, replace)
+    if (DEBUG) {
+      console.log(regexStr, replace)
+      console.log('content: ', content)
+    }
   })
 
   return content
