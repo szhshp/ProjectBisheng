@@ -80,9 +80,14 @@ describe('文本混排', () => {
       after: '对数据表 Table 插入对应的数据 Data'
     },
     {
-      desc: '中英文之间带有粗体符号, 则空格应该添加在符号外侧',
+      desc: '对于粗体文本, 则空格应该添加在符号两侧',
       before: '存在Table**如果**Schema中不存在,将**Data中存在的数据X**插入Table',
       after: '存在 Table **如果** Schema 中不存在, 将 **Data 中存在的数据 X** 插入 Table'
+    },
+    {
+      desc: '对于粗体文本, 如果在粗体文本之间已经有空格，不添加新的空格。',
+      before: '对于**粗体**文本, 如果在 **粗体文本** 之间已经有空格，不应该添加新的空格。',
+      after: '对于 **粗体** 文本, 如果在 **粗体文本** 之间已经有空格, 不应该添加新的空格. '
     },
     {
       desc: '替换全角符号+中英文之间添加空格',
@@ -108,27 +113,44 @@ describe('文本混排', () => {
 describe('清除空行', () => {
   [
     {
-      desc: '清除空行',
+      desc: '清除段落间的空行',
       before: `
-      末尾附带很多空行的文本清理之后应该只剩一行
+第一段内容.
       
       
       
-      `,
+
+
+第二段内容
+
+   
+      
+   
+上面有各种不可见字符`,
       after: `
-      末尾附带很多空行的文本清理之后应该只剩一行
-      `
+第一段内容.
+
+第二段内容
+
+上面有各种不可见字符`
     },
     {
       desc: '清除空行 + 标点格式化',
       before: `
-      末尾附带很多空行的文本,清理之后应该只剩1行！
+末尾附带很多空行的文本,清理之后应该只剩1行！
       
       
       
-      `,
+
+
+
+
+
+`,
       after: `
-      末尾附带很多空行的文本, 清理之后应该只剩 1 行! `
+末尾附带很多空行的文本, 清理之后应该只剩 1 行! 
+
+`
     },
     {
       desc: '实际 Markdown 格式化',
@@ -175,6 +197,60 @@ Github 发布之后发现 JS,CSS 全部 404, 因为发布的 URL 是 \`https://s
 可以设置 baseurl 为 repo 名字, 一次性解决所有问题, site.url 都不需要了
 
 Coding Pages 不需要这样处理
+`
+    },
+    {
+      desc: '代码段应该不受影响',
+      before: `
+\`\`\` html
+<!-- jQuery -->
+<script src="{{site.url}}{{site.baseurl}}/js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{{site.url}}{{site.baseurl}}/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="{{site.url}}{{site.baseurl}}/js/custom.js"></script>
+\`\`\`
+`,
+      after: `
+\`\`\` html
+<!-- jQuery -->
+<script src="{{site.url}}{{site.baseurl}}/js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{{site.url}}{{site.baseurl}}/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="{{site.url}}{{site.baseurl}}/js/custom.js"></script>
+\`\`\`
+`
+    },
+    {
+      desc: '实际 Markdown 格式化',
+      before: `
+- 通过state决定渲染哪一个 component，在 react 里面也是非常常见的。
+
+这个问题没有意义, 因为设计模式基本上都是混用, 一个手动实现一个Redux就行。
+
+setState 会引发一次组件的更新过程, 从而引发页面的重新绘制。
+
+*   shouldComponentUpdate（被调用时 this.state 没有更新；如果返回了 false, 生命周期被中断, 虽然不调用之后的函数了, 但是 state 仍然会被更新）
+*   componentWillUpdate（被调用时 this.state 没有更新）
+*   render（被调用时 this.state 得到更新）
+*   componentDidUpdate
+`,
+      after: `
+- 通过 state 决定渲染哪一个 component, 在 react 里面也是非常常见的. 
+
+这个问题没有意义, 因为设计模式基本上都是混用, 一个手动实现一个 Redux 就行. 
+
+setState 会引发一次组件的更新过程, 从而引发页面的重新绘制. 
+
+*   shouldComponentUpdate (被调用时 this.state 没有更新; 如果返回了 false, 生命周期被中断, 虽然不调用之后的函数了, 但是 state 仍然会被更新) 
+*   componentWillUpdate (被调用时 this.state 没有更新) 
+*   render (被调用时 this.state 得到更新) 
+*   componentDidUpdate
 `
     },
     {

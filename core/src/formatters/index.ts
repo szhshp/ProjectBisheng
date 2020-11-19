@@ -1,19 +1,10 @@
-const DEBUG = true
-
-/**
- * @name removeBlankLinesAtTheEnd
- * @desc Remove multiple blank lines in the end of the content
- */
-export const removeBlankLinesAtTheEnd = (content: string): string => {
-  content = content.replace(/^(.*)(\r?\n\1)+$/gm, '$1')
-  return content
-}
+const DEBUG = false
 
 /**
  * @name replacePunctuations
  * @desc Add extra space after punctuations
  */
-export const replacePunctuations = (
+export const biShengFormat = (
   content: string,
   config = {
     ellipsisCount: 3
@@ -36,10 +27,11 @@ export const replacePunctuations = (
   const ALPHABETICAL_AND_NUM = 'a-zA-Z0-9'
 
   const replaceSchema: {
-    [key: string]: [string, string][];
+    [key: string]: [string, string, string?][];
   } = {
-    linksFormat: [['\\[([^\\]]+)\\][（(]([^)]+)[）)]', '[$1]($2)']],
-    boldTextBlock: [['(\\*\\*.*?\\*\\*)', ' $1 ']],
+    markdownLinksInFullWidth: [['\\[([^\\]]+)\\][（(]([^)]+)[）)]', '[$1]($2)']],
+    boldTextBlock: [['(?<!\\s)(\\*\\*.*?\\*\\*)(?!\\s)', ' $1 ']],
+    blankLines: [['(\\s+\\n){3,}', '\n\n']],
     duplicatedPunctuations: [
       ['。', Array(config.ellipsisCount).fill('.').join('')],
       ['\\.', Array(config.ellipsisCount).fill('.').join('')],
@@ -48,9 +40,10 @@ export const replacePunctuations = (
       ['？', '???'],
       ['\\?', '???'],
       ['，', '，']
+      // ['(\\s*\\n)', '\n']
     ].map<[string, string]>(([toReplace, replaceValue]) => [
-        `${toReplace}{3,}`,
-        replaceValue
+      `${toReplace}{3,}`,
+      replaceValue
     ]),
     fullWidthChars: [
       ['，', ', '],
@@ -131,10 +124,7 @@ export const replacePunctuations = (
       ['ｙ', 'y'],
       ['ｚ', 'z'],
       ['＠', '@']
-    ].map<[string, string]>(([cnSign, enSign]) => [
-      `${cnSign}\\s*`,
-      `${enSign}`
-    ]),
+    ].map<[string, string]>(([cnSign, enSign]) => [`${cnSign}`, `${enSign}`]),
     chineseCharAndAlphabeticalChar: [
       [
         `([${ALPHABETICAL_AND_NUM}\\]!;\\,\\.\\:\\?\\)])([*]*[${CHINESE_CHARS}])`,
@@ -144,16 +134,19 @@ export const replacePunctuations = (
     ]
   }
 
-  Object.keys(replaceSchema).forEach(key => {
+  Object.keys(replaceSchema).forEach((key) => {
     if (DEBUG) {
-      console.log('--------------Format', key)
+      console.log('--------------FORMAT--------------')
+      console.log(key)
+      console.log('--------------BEFORE--------------')
     }
-    replaceSchema[key].forEach(([regexStr, replace]) => {
-      const regex = new RegExp(regexStr, 'g')
+    replaceSchema[key].forEach(([regexStr, replace, flags]) => {
+      const regex = new RegExp(regexStr, flags || 'g')
       content = content.replace(regex, replace)
     })
     if (DEBUG) {
-      console.log('--------------content: ', content)
+      console.log('--------------AFTER--------------')
+      console.log(content)
     }
   })
 
@@ -161,8 +154,5 @@ export const replacePunctuations = (
 }
 
 export const format = (content: string): string => {
-  let formattedContent = removeBlankLinesAtTheEnd(content)
-  formattedContent = replacePunctuations(formattedContent)
-
-  return formattedContent
+  return biShengFormat(content)
 }
