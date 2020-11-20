@@ -4,7 +4,7 @@
 
 
 <h1 align="center">
-  <a href="https://github.com/szhielelp/NextJS-BlogTemplate-ProjectTitan">
+  <a href="https://github.com/szhielelp/ProjectBisheng">
     毕昇工程
   </a>
 </h1>

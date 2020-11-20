@@ -5,7 +5,7 @@
   "types": "./dist/index.d.ts",
   "author": "szhshp",
   "license": "MIT",
-  "repository": "https://github.com/szhielelp/bisheng",
+  "repository": "https://github.com/szhielelp/ProjectBisheng",
   "scripts": {
     "prepublish": "rimraf dist && tsc && yarn run build",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
