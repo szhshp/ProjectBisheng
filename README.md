@@ -1,4 +1,4 @@
-> (Under Development)
+> (开发进行中)
 
 
 
@@ -21,5 +21,5 @@
 
 这个项目包含以下部分:
 
-- [NPM 包](/core/README.md)
-- [VSC 插件](/vscode-extension/README.md)
+- [NPM 包](https://github.com/szhielelp/ProjectBisheng/tree/main/core)
+- [VSC 插件](https://github.com/szhielelp/ProjectBisheng/tree/main/vscode-extension)
