@@ -1,6 +1,16 @@
 # Project Bisheng - VSC Extension
 
-> '毕昇'-中英文混排工具的 VSC 插件实现
+> '毕昇'-Markdown 中英文混排工具的 VSC 插件
+
+
+## 使用方法
+
+以下两种方法皆可:
+
+1. `Ctrl + Shit + P`, 选择 `BiSheng Formatter: Format Text`
+2. `Ctrl + Alt + B`
+
+即可格式化 **选中的文字** (或当前编辑的整个文件)
 
 ## Dev
 
@@ -28,12 +38,13 @@ vsce publish
 - [x] Git Ignore /dist
 - [x] Core
   - [ ] 繁体支持
+  - [ ] 符号与英文之间添加空格 (可选)
 - [x] NPM
 - [ ] VSC Extension
   - [x] 发布到 VSC Market
-  - [ ] Ext Icon
-  - [ ] 快捷键
+  - [x] Ext Icon
+  - [x] 快捷键
     - [ ] Format On Save
   - [ ] 配置选项
-  - [ ] Format Selected
+  - [x] Format Selected
 - [ ] 网页端实现

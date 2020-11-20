@@ -13,54 +13,75 @@ const getFullRange = (doc: vscode.TextDocument) => {
   return range;
 };
 
-const getFullRangeContent = (doc: vscode.TextDocument) =>
-  doc.getText(getFullRange(doc));
-
-const formatDoc = (editor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
-  // let editor = vscode.window.activeTextEditor;
-  let doc = editor.document;
-
+const formatContent = ({
+  range,
+  doc,
+  edit,
+}: {
+  range: vscode.Range;
+  doc: vscode.TextDocument;
+  edit: vscode.TextEditorEdit;
+}) => {
+  const contentToFormat = doc.getText(range);
+  /* Get Content */
   if (DEBUG) {
-    console.log(getFullRangeContent(doc));
+    console.log("Before Format");
+    console.log(contentToFormat);
   }
 
+  /* Format the content */
+  const formattedContent = bishengFormat(contentToFormat);
+
+  if (DEBUG) {
+    console.log("After Format");
+    console.log(formattedContent);
+  }
+  /* Replace the active content */
+  edit.replace(range, formattedContent);
+};
+
+const main = (editor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
+  const doc = editor.document;
   if (["markdown", "plaintext"].indexOf(doc.languageId) > -1) {
-    /* Get Content */
-    let formattedContent = getFullRangeContent(doc);
-    if (DEBUG) {
-      console.log("Before Format");
-      console.log(formattedContent);
-    }
+    // let editor = vscode.window.activeTextEditor;
+    const selections = editor.selections;
 
-    /* Format the content */
-    formattedContent = bishengFormat(formattedContent);
-
-    if (DEBUG) {
-      console.log("After Format");
-      console.log(formattedContent);
+    if (selections.filter((selection) => !selection.isEmpty).length > 0) {
+      selections.forEach((selection) => {
+        formatContent({
+          range: new vscode.Range(selection.start, selection.end),
+          doc,
+          edit,
+        });
+      });
+      vscode.window.showInformationMessage(
+        "BiSheng Formatter: Selected Text Formatted"
+      );
+    } else {
+      formatContent({
+        range: getFullRange(doc),
+        doc,
+        edit,
+      });
+      vscode.window.showInformationMessage(
+        "BiSheng Formatter: Document Formatted"
+      );
     }
-    /* Replace the active content */
-    edit.replace(getFullRange(doc), formattedContent);
+  } else {
+    vscode.window.showInformationMessage(
+      "BiSheng Formatter: Try to run Formatter in Markdown or PlainText"
+    );
   }
 };
 
 const activate = (context: vscode.ExtensionContext) => {
-  console.log("Congratulations, BiSheng Formatter is ready!");
-
-  /* let disposable = vscode.commands.registerCommand(
-    "bisheng-formatter-vscode-extension.helloWorld",
-    () => {
-      // Display a message box to the user
-      vscode.window.showInformationMessage("BiSheng Formatter: Activated");
-    }
-  ); 
-  
-  context.subscriptions.push(disposable);
- */
+  if (DEBUG) {
+    console.log("Congratulations, BiSheng Formatter is ready!");
+  }
 
   let formatterDisposable = vscode.commands.registerTextEditorCommand(
     "bisheng-formatter-vscode-extension.format",
-    formatDoc
+    main
   );
   context.subscriptions.push(formatterDisposable);
 };
