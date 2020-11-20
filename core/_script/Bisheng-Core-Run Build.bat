@@ -1,3 +1,4 @@
 cd %cd%
 cd ..
-start npm run build
+npm run build 
+copy dist ..\vscode-extension\node_modules\bisheng-formatter-core\dist /Y
