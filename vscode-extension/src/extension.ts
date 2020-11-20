@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
-import format from "bisheng-formatter-core";
+import { bishengFormat } from "bisheng-formatter-core";
 
-const DEBUG = 1;
+const DEBUG = 0;
 
 const getFullRange = (doc: vscode.TextDocument) => {
   let start = new vscode.Position(0, 0);
@@ -33,7 +33,7 @@ const formatDoc = (editor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
     }
 
     /* Format the content */
-    formattedContent = format(formattedContent);
+    formattedContent = bishengFormat(formattedContent);
 
     if (DEBUG) {
       console.log("After Format");
@@ -47,15 +47,16 @@ const formatDoc = (editor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
 const activate = (context: vscode.ExtensionContext) => {
   console.log("Congratulations, BiSheng Formatter is ready!");
 
-  let disposable = vscode.commands.registerCommand(
+  /* let disposable = vscode.commands.registerCommand(
     "bisheng-formatter-vscode-extension.helloWorld",
     () => {
       // Display a message box to the user
       vscode.window.showInformationMessage("BiSheng Formatter: Activated");
     }
-  );
-
+  ); 
+  
   context.subscriptions.push(disposable);
+ */
 
   let formatterDisposable = vscode.commands.registerTextEditorCommand(
     "bisheng-formatter-vscode-extension.format",

@@ -1,6 +1,6 @@
 # Project Bisheng (Under Development)
 
-> '毕昇' - 中英文混排工具, 此工具仅适用于中文, 将不会支持多语言
+> '毕昇' - 中英文混排工具, 此工具仅适用于中文混合排版, 将不会进行多语言的实现
 
 ## NPM
 
@@ -13,18 +13,21 @@ const { bishengFormat } = require("bisheng-formatter-core");
 console.log(bishengFormat("测试文本abc"));
 ```
 
+## VSC Extension
+
+
 ## TODO
 
 - [x] Config
   - [x] Git Ignore /dist
 - [x] Core
-  - [x] 发布到 NPM
   - [ ] 繁体支持
-- [ ] VSC Ext
-  - [x] 使用最新版的 Core
-  - [ ] 添加快捷键
+- [x] NPM
+- [ ] VSC Extension
+  - [x] 发布到 VSC Market
+  - [ ] Ext Icon
+  - [ ] 快捷键
+    - [ ] Format On Save
   - [ ] 配置选项
-  - [ ] 仅格式化选中的文本
-  - [ ] 发布到 Market
-- [ ] ES5 Release
+  - [ ] Format Selected
 - [ ] 网页端实现

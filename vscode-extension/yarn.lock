@@ -540,10 +540,10 @@ bindings@^1.5.0:
   dependencies:
     file-uri-to-path "1.0.0"
 
-bisheng-formatter-core@^0.1.9:
-  version "0.1.9"
-  resolved "https://registry.npmjs.org/bisheng-formatter-core/-/bisheng-formatter-core-0.1.9.tgz#cd65a85308f3d758cd3e5960ee250d51cc0c481d"
-  integrity sha512-c3PpwJtATSlahHXrIPbQCTyI540fhsQLNYhgohA9l6y2s68/YZKwjOM+kmaCS7TpKro+ChXzp7vadL9cr+DyUg==
+bisheng-formatter-core@0.1.12:
+  version "0.1.12"
+  resolved "https://registry.npmjs.org/bisheng-formatter-core/-/bisheng-formatter-core-0.1.12.tgz#59e81e07a4d60a2329b9ce49cf4a20250399c311"
+  integrity sha512-Of9VyJAurisBKpnVvzumb0ev0n8cMNurRdlD7D/jsZoxImV62MaTcqd4hnNSb9h+qyhBffU6fX7d2bXV95bHsQ==
 
 bluebird@^3.5.5:
   version "3.7.2"

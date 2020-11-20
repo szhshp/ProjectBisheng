@@ -2,27 +2,24 @@
   "name": "bisheng-formatter-vscode-extension",
   "displayName": "bisheng-formatter-vscode-extension",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "repository": "https://github.com/szhielelp/bisheng",
   "engines": {
     "vscode": "^1.51.0"
   },
   "categories": [
     "Other"
   ],
+  "publisher": "szhshp",
   "activationEvents": [
-    "onCommand:bisheng-formatter-vscode-extension.helloWorld",
     "onCommand:bisheng-formatter-vscode-extension.format"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "bisheng-formatter-vscode-extension.helloWorld",
-        "title": "Hello World"
-      },
-      {
         "command": "bisheng-formatter-vscode-extension.format",
-        "title": "BiSheng Format"
+        "title": "BiSheng Formatter: Format Text"
       }
     ]
   },
@@ -56,6 +53,6 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "bisheng-formatter-core": "^0.1.9"
+    "bisheng-formatter-core": "0.1.12"
   }
 }
