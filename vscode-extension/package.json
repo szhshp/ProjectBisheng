@@ -2,7 +2,7 @@
   "name": "bisheng-formatter-vscode-extension",
   "displayName": "Bisheng Markdown Formatter",
   "description": "'毕昇'-Markdown 中英文混排工具的 VSC 插件实现",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "repository": "https://github.com/szhielelp/bisheng",
   "engines": {
     "vscode": "^1.51.0"
@@ -10,6 +10,7 @@
   "categories": [
     "Other"
   ],
+  "icon": "assets/logo.png",
   "publisher": "szhshp",
   "activationEvents": [
     "onCommand:bisheng-formatter-vscode-extension.format"

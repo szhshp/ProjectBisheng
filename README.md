@@ -1,12 +1,23 @@
 > (Under Development)
 
-# Project BiSheng 
+
+
+
+<h1 align="center">
+  <a href="https://github.com/szhielelp/NextJS-BlogTemplate-ProjectTitan">
+    毕昇工程
+  </a>
+</h1>
+
+
+<div align=center><img src="./assets/logo.png"/></div>
+
 
 > '毕昇' - 中英文混排工具, 适用于中英文混合排版
 > 
 > 因为仅中文使用者会有这样排班需求, ~~并且我不相信外国人会用这玩意😄~~, 此项目不会有多语言适配
 
-## Modules
+## 组件
 
 这个项目包含以下部分:
 
