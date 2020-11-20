@@ -1,2 +1,3 @@
 import { format } from './formatters'
-export default format
+
+export const bishengFormat = format
