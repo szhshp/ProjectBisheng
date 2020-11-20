@@ -2,3 +2,4 @@
 node_modules
 /vscode-extension/dist
 build
+/core/_script/Bisheng-Core-Run Build.bat

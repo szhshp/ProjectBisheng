@@ -1,33 +1,14 @@
-# Project Bisheng (Under Development)
+> (Under Development)
 
-> '毕昇' - 中英文混排工具, 此工具仅适用于中文混合排版, 将不会进行多语言的实现
+# Project BiSheng 
 
-## NPM
+> '毕昇' - 中英文混排工具, 适用于中英文混合排版
+> 
+> 因为仅中文使用者会有这样排班需求, ~~并且我不相信外国人会用这玩意😄~~, 此项目不会有多语言适配
 
-```
-npm install bisheng-formatter-core -S
-```
+## Modules
 
-```js
-const { bishengFormat } = require("bisheng-formatter-core");
-console.log(bishengFormat("测试文本abc"));
-```
+这个项目包含以下部分:
 
-## VSC Extension
-
-
-## TODO
-
-- [x] Config
-  - [x] Git Ignore /dist
-- [x] Core
-  - [ ] 繁体支持
-- [x] NPM
-- [ ] VSC Extension
-  - [x] 发布到 VSC Market
-  - [ ] Ext Icon
-  - [ ] 快捷键
-    - [ ] Format On Save
-  - [ ] 配置选项
-  - [ ] Format Selected
-- [ ] 网页端实现
+- [NPM 包](/core/README.md)
+- [VSC 插件](/vscode-extension/README.md)
