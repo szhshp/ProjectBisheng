@@ -57,9 +57,7 @@
     "typescript": "^4.0.2",
     "vscode-test": "^1.4.0",
     "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12"
-  },
-  "dependencies": {
+    "webpack-cli": "^3.3.12",
     "bisheng-formatter-core": "0.1.12"
   }
 }
