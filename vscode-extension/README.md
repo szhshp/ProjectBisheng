@@ -3,7 +3,7 @@
 > '毕昇'-Markdown 中英文混排工具的 VSC 插件
 
 
-## 使用方法
+## Usage
 
 以下两种方法皆可:
 
@@ -15,7 +15,7 @@
 ## Dev
 
 ```
-yarn
+npm i
 ```
 
 然后使用 Debug 或按下 `F5`
@@ -37,7 +37,7 @@ vsce publish
 - [x] Readme
 - [x] Git Ignore /dist
 - [x] Core
-  - [ ] 繁体支持
+  - [x] 繁体支持
   - [ ] 符号与英文之间添加空格 (可选)
 - [x] NPM
 - [ ] VSC Extension
