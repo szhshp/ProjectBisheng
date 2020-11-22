@@ -34,15 +34,15 @@ const config = {
   mainFeature: {
     /* 
       决定是否格式化全角 markdown 链接
-      before: [title]（link）
-      after: [title](link)
+        before: [title]（link）
+        after: [title](link)
     */
     markdownLinksInFullWidth: true,
 
     /* 
       决定是否在粗体两侧添加空格
-      before: 这里是**粗体**文本
-      after: 这里是 **粗体** 文本
+        before: 这里是**粗体**文本
+        after: 这里是 **粗体** 文本
     */
     boldTextBlock: true,
 
@@ -51,8 +51,8 @@ const config = {
 
     /*  
       决定是否格式化连续的标点符号: 一般是多个句号组成的省略号 (。。。。。) 以及多个感叹号或问号。
-      before: 这里是一段中文带着很多很多的感叹号和问号！！！！!!!!！！！？？????????？？？？
-      after: 这里是一段中文带着很多很多的感叹号和问号!!!???
+        before: 这里是一段中文带着很多很多的感叹号和问号！！！！!!!!！！！？？????????？？？？
+        after: 这里是一段中文带着很多很多的感叹号和问号!!!???
      */
     duplicatedPunctuations: true,
 
@@ -70,6 +70,12 @@ const config = {
       after: 这里是一段中文带着很多很多的感叹号和问号!!!!!!
    */
   ellipsisCount: 3,
+
+  /* 
+    决定是否使用常用标点替换全角引号
+    true: 使用 (""'') 替换 (“”‘’)
+    false: 使用 (『』「」) 替换 (“”‘’)
+  */
   useSimpleQuotation: false
 }
 
