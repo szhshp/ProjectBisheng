@@ -7,7 +7,10 @@ const DEBUG = 0
  * @name replacePunctuations
  * @desc Add extra space after punctuations
  */
-export const biShengFormat = (content: string, config: BishengMainConfig): string => {
+export const biShengFormat = (
+  content: string,
+  config: BishengMainConfig
+): string => {
   const ellipsisCount = config?.ellipsisCount || 3
   const useSimpleQuotation = config?.useSimpleQuotation
   const mainFeature: BishengMainFeature = config?.mainFeature || {
@@ -16,6 +19,7 @@ export const biShengFormat = (content: string, config: BishengMainConfig): strin
     blankLines: true,
     duplicatedPunctuations: true,
     fullWidthCharsAndFollowingSpaces: true,
+    halfWidthCharsAndFollowingSpaces: true,
     addSpacesBetweenChineseCharAndAlphabeticalChar: true
   }
 
@@ -41,7 +45,7 @@ export const biShengFormat = (content: string, config: BishengMainConfig): strin
     markdownLinksInFullWidth: [
       ['\\[([^\\]]+)\\][（(]([^)]+)[）)]', '[$1]($2)']
     ],
-    boldTextBlock: [['(?<!\\s)(\\*\\*.*?\\*\\*)(?!\\s)', ' $1 ']],
+    boldTextBlock: [['\\s*(\\*\\*[^\\*]*?\\*\\*)\\s*', ' $1 ']],
     blankLines: [['(\\s+\\n){3,}', '\n\n']],
     duplicatedPunctuations: [
       ['。', Array(ellipsisCount).fill('.').join('')],
@@ -61,6 +65,9 @@ export const biShengFormat = (content: string, config: BishengMainConfig): strin
       `${cnSign}[ ]*`,
       `${enSign}`
     ]),
+    halfWidthCharsAndFollowingSpaces: [[',', ', ']].map<[string, string]>(
+      ([before, after]) => [`${before}[ ]*`, `${after}`]
+    ),
     addSpacesBetweenChineseCharAndAlphabeticalChar: [
       [
         `([${ALPHABETICAL_AND_NUM}\\]!;\\,\\.\\:\\?\\)])([*]*[${CHINESE_CHARS}])`,

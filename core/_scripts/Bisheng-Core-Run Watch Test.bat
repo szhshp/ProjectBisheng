@@ -1,3 +1,3 @@
 cd %cd%
-start npm publish
+start yarn watch
 pause

@@ -59,6 +59,9 @@ const config = {
     /* 决定是否格式化全角符号/数字/英文字符 */
     fullWidthCharsAndFollowingSpaces: true,
 
+    /* 决定是否格式化半角符号/数字/英文字符 */
+    halfWidthCharsAndFollowingSpaces: true,
+
     /* 决定是否在中文和英文之间添加空格 */
     addSpacesBetweenChineseCharAndAlphabeticalChar: true
   },

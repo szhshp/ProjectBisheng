@@ -130,6 +130,11 @@ const testCases: testCaseSet[] = [
         after: '对数据表 Table 插入对应的数据 Data'
       },
       {
+        desc: '中英文之间添加空格3',
+        before: '这一幕被一楼 DHBM 系统监控到,30 秒内关闭了系统.',
+        after: '这一幕被一楼 DHBM 系统监控到, 30 秒内关闭了系统.'
+      },
+      {
         desc: '中英文之间添加空格 Disabled',
         before: '对数据表Table插入对应的数据Data',
         after: '对数据表Table插入对应的数据Data',
@@ -140,11 +145,18 @@ const testCases: testCaseSet[] = [
         }
       },
       {
-        desc: '对于粗体文本, 则空格应该添加在符号两侧',
+        desc: '粗体文本前后添加空格1',
         before:
           '存在Table**如果**Schema中不存在,将**Data中存在的数据X**插入Table',
         after:
           '存在 Table **如果** Schema 中不存在, 将 **Data 中存在的数据 X** 插入 Table'
+      },
+      {
+        desc: '粗体文本前后添加空格2',
+        before:
+          '他曾经任职**新华**公司核心开发部, 负责**X80**的**Lucky OS**适配性设计与开发————这段经验非常适合这家新公司的跨平台媒体系统项目.',
+        after:
+          '他曾经任职 **新华** 公司核心开发部, 负责 **X80** 的 **Lucky OS** 适配性设计与开发————这段经验非常适合这家新公司的跨平台媒体系统项目.'
       },
       {
         desc: '对于粗体文本, 如果在粗体文本之间已经有空格，不添加新的空格。',
@@ -290,7 +302,7 @@ tags: [Github, Pages]
 
 关于 Pages 发布后很多文件 404 错误
 
-Github 发布之后发现 JS,CSS 全部 404, 因为发布的 URL 是 \`https://szhielelp.github.io/ProjectGaia/\` 然而 JS 和 CSS 放到了根目录下面 \`https://szhielelp.github.io/js/\`
+Github 发布之后发现 JS, CSS 全部 404, 因为发布的 URL 是 \`https://szhielelp.github.io/ProjectGaia/\` 然而 JS 和 CSS 放到了根目录下面 \`https://szhielelp.github.io/js/\`
 
 ## Solution 1
 

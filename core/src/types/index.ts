@@ -6,6 +6,7 @@ export type BishengMainFeature = {
   duplicatedPunctuations?: boolean;
   fullWidthCharsAndFollowingSpaces?: boolean;
   addSpacesBetweenChineseCharAndAlphabeticalChar?: boolean;
+  halfWidthCharsAndFollowingSpaces?: boolean
 };
 
 export type BishengMainConfig = {
