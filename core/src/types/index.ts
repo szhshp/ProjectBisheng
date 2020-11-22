@@ -1,18 +1,11 @@
-/* export enum Language {
-  en = 'en',
-  cn = 'cn',
-} */
-
-export type BishengMainFeatureSet =
-| 'markdownLinksInFullWidth'
-| 'boldTextBlock'
-| 'blankLines'
-| 'duplicatedPunctuations'
-| 'fullWidthCharsAndFollowingSpaces'
-| 'addSpacesBetweenChineseCharAndAlphabeticalChar';
 
 export type BishengMainFeature = {
-  [key in BishengMainFeatureSet]?: boolean;
+  markdownLinksInFullWidth?: boolean;
+  boldTextBlock?: boolean;
+  blankLines?: boolean;
+  duplicatedPunctuations?: boolean;
+  fullWidthCharsAndFollowingSpaces?: boolean;
+  addSpacesBetweenChineseCharAndAlphabeticalChar?: boolean;
 };
 
 export type BishengMainConfig = {

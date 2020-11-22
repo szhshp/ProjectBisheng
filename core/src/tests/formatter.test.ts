@@ -9,9 +9,9 @@ type testCase = {
 };
 
 type testCaseSet = {
-  desc: string,
-  cases: testCase[]
-}
+  desc: string;
+  cases: testCase[];
+};
 
 const testCases: testCaseSet[] = [
   {
@@ -26,6 +26,16 @@ const testCases: testCaseSet[] = [
         desc: '全角字符替换2',
         before: '都ＡＣ3000年了谁还用全角写文章',
         after: '都 AC3000 年了谁还用全角写文章'
+      },
+      {
+        desc: '全角字符替换 Disabled',
+        before: '都ＡＣ3000年了谁还用全角写文章',
+        after: '都ＡＣ3000年了谁还用全角写文章',
+        config: {
+          mainFeature: {
+            fullWidthCharsAndFollowingSpaces: false
+          }
+        }
       }
     ]
   },
@@ -59,6 +69,27 @@ const testCases: testCaseSet[] = [
         before:
           '这里是一段中文带着很多很多的感叹号和问号！！！！！！！？？？？？？',
         after: '这里是一段中文带着很多很多的感叹号和问号!!!???'
+      },
+      {
+        desc: '复符号替换4',
+        before:
+          '这里是一段中文带着很多很多的感叹号和问号！！！！!!!！！！？？？???？？？',
+        after: '这里是一段中文带着很多很多的感叹号和问号!!!!!!??????',
+        config: {
+          ellipsisCount: 6
+        }
+      },
+      {
+        desc: '复符号替换 Disabled',
+        before:
+          '这里是一段中文带着很多很多的感叹号和问号！！！！！！！？？？？？？',
+        after:
+          '这里是一段中文带着很多很多的感叹号和问号！！！！！！！？？？？？？',
+        config: {
+          mainFeature: {
+            duplicatedPunctuations: false
+          }
+        }
       },
       {
         desc: '中文引号替换: 使用英文引号替换',
@@ -99,6 +130,16 @@ const testCases: testCaseSet[] = [
         after: '对数据表 Table 插入对应的数据 Data'
       },
       {
+        desc: '中英文之间添加空格 Disabled',
+        before: '对数据表Table插入对应的数据Data',
+        after: '对数据表Table插入对应的数据Data',
+        config: {
+          mainFeature: {
+            addSpacesBetweenChineseCharAndAlphabeticalChar: false
+          }
+        }
+      },
+      {
         desc: '对于粗体文本, 则空格应该添加在符号两侧',
         before:
           '存在Table**如果**Schema中不存在,将**Data中存在的数据X**插入Table',
@@ -111,6 +152,18 @@ const testCases: testCaseSet[] = [
           '对于**粗体**文本, 如果在 **粗体文本** 之间已经有空格，不应该添加新的空格。',
         after:
           '对于 **粗体** 文本, 如果在 **粗体文本** 之间已经有空格, 不应该添加新的空格. '
+      },
+      {
+        desc: '粗体文本 Disabled',
+        before:
+          '对于**粗体**文本, 如果在 **粗体文本** 之间已经有空格，不应该添加新的空格。',
+        after:
+          '对于**粗体**文本, 如果在 **粗体文本** 之间已经有空格，不应该添加新的空格。',
+        config: {
+          mainFeature: {
+            boldTextBlock: false
+          }
+        }
       },
       {
         desc: '替换全角符号+中英文之间添加空格',
@@ -132,7 +185,7 @@ const testCases: testCaseSet[] = [
     desc: '清除空行',
     cases: [
       {
-        desc: '清除段落间的空行',
+        desc: '清除空行',
         before: `
 第一段内容.
       
@@ -152,6 +205,40 @@ const testCases: testCaseSet[] = [
 第二段内容
 
 上面有各种不可见字符`
+      },
+      {
+        desc: '清除空行 Disabled',
+        before: `
+第一段内容.
+      
+      
+      
+
+
+第二段内容
+
+   
+      
+   
+上面有各种不可见字符`,
+        after: `
+第一段内容.
+      
+      
+      
+
+
+第二段内容
+
+   
+      
+   
+上面有各种不可见字符`,
+        config: {
+          mainFeature: {
+            blankLines: false
+          }
+        }
       },
       {
         desc: '清除空行 + 标点格式化',
@@ -276,7 +363,7 @@ setState 会引发一次组件的更新过程, 从而引发页面的重新绘制
   }
 ]
 
-testCases.forEach(t => {
+testCases.forEach((t) => {
   describe(t.desc, () => {
     t.cases.forEach(({ desc, before, after, config }) => {
       test(desc, () => {

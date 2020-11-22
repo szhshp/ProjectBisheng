@@ -46,10 +46,10 @@ export const biShengFormat = (content: string, config: BishengMainConfig): strin
     duplicatedPunctuations: [
       ['。', Array(ellipsisCount).fill('.').join('')],
       ['\\.', Array(ellipsisCount).fill('.').join('')],
-      ['！', '!!!'],
-      ['\\!', '!!!'],
-      ['？', '???'],
-      ['\\?', '???'],
+      ['！', Array(ellipsisCount).fill('!').join('')],
+      ['\\!', Array(ellipsisCount).fill('!').join('')],
+      ['？', Array(ellipsisCount).fill('?').join('')],
+      ['\\?', Array(ellipsisCount).fill('?').join('')],
       ['，', '，']
     ].map<[string, string]>(([toReplace, replaceValue]) => [
       `${toReplace}{3,}`,
