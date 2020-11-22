@@ -1,7 +1,7 @@
 {
   "name": "bisheng-formatter-vscode-extension",
   "displayName": "Bisheng Markdown Formatter",
-  "description": "'毕昇'-Markdown 中英文混排工具的 VSC 插件实现",
+  "description": "毕昇 - Markdown 中英文混排工具的 VSC 插件实现",
   "version": "0.1.5",
   "repository": "https://github.com/szhielelp/ProjectBisheng",
   "engines": {
@@ -28,7 +28,48 @@
         "command": "bisheng-formatter-vscode-extension.format",
         "key": "ctrl+alt+b"
       }
-    ]
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Bisheng Formatter",
+      "properties": {
+        "mainFeature.markdownLinksInFullWidth": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否格式化全角 Markdown 链接\n示例: [title]（link） => [title](link)"
+        },
+        "mainFeature.boldTextBlock": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否在粗体两侧添加空格\n示例: 这里是**粗体**文本 -> 这里是 **粗体** 文本"
+        },
+        "mainFeature.blankLines": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否清空连续的空行"
+        },
+        "mainFeature.duplicatedPunctuations": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否格式化连续的标点符号\n一般是多个句号组成的省略号 (。。。。。) 以及多个感叹号或问号。"
+        },
+        "mainFeature.fullWidthCharsAndFollowingSpaces": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否格式化全角符号 / 数字 / 英文字符"
+        },
+        "mainFeature.addSpacesBetweenChineseCharAndAlphabeticalChar": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否在中文和英文之间添加空格"
+        },
+        "general.useSimpleQuotation": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否使用常用标点替换全角引号\nTrue: 使用 (\"\"'') 替换 (“”‘’)\nFalse: 使用 (『』「」) 替换 (“”‘’)"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "webpack --mode production",
@@ -50,6 +91,7 @@
     "@types/vscode": "^1.51.0",
     "@typescript-eslint/eslint-plugin": "^4.1.1",
     "@typescript-eslint/parser": "^4.1.1",
+    "bisheng-formatter-core": "^0.2.0",
     "eslint": "^7.9.0",
     "glob": "^7.1.6",
     "mocha": "^8.1.3",
@@ -57,7 +99,6 @@
     "typescript": "^4.0.2",
     "vscode-test": "^1.4.0",
     "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
-    "bisheng-formatter-core": "0.1.12"
+    "webpack-cli": "^3.3.12"
   }
 }

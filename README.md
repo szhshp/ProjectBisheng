@@ -23,3 +23,25 @@
 
 - [NPM 包](https://github.com/szhielelp/ProjectBisheng/tree/main/core)
 - [VSC 插件](https://github.com/szhielelp/ProjectBisheng/tree/main/vscode-extension)
+
+
+## TODO
+
+
+## TODO
+
+- [x] Readme
+- [x] Git Ignore /dist
+- [x] Core
+  - [x] 繁体支持
+  - [ ] 符号与英文之间添加空格 (可选)
+- [x] NPM
+  - [ ] NPM 发布忽略 src 文件夹
+- [ ] VSC Extension
+  - [x] 发布到 VSC Market
+  - [x] Ext Icon
+  - [x] 快捷键
+    - [ ] Format On Save
+  - [x] 配置选项
+  - [x] Format Selected
+- [ ] 网页端实现

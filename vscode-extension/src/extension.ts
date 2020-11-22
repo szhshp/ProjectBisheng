@@ -1,5 +1,8 @@
 import * as vscode from "vscode";
 import { bishengFormat } from "bisheng-formatter-core";
+import {
+  BishengMainFeature,
+} from "bisheng-formatter-core/dist/types";
 
 const DEBUG = 0;
 
@@ -29,8 +32,18 @@ const formatContent = ({
     console.log(contentToFormat);
   }
 
+  const mainFeature: BishengMainFeature =
+    vscode.workspace.getConfiguration().get("mainFeature") || {};
+  const useSimpleQuotation: boolean = vscode.workspace
+    .getConfiguration()
+    .get("general.useSimpleQuotation") || false;
+
   /* Format the content */
-  const formattedContent = bishengFormat(contentToFormat);
+  const formattedContent = bishengFormat(contentToFormat, {
+    mainFeature,
+    useSimpleQuotation,
+  });
+  
 
   if (DEBUG) {
     console.log("After Format");
