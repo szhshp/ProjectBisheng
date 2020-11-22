@@ -1,2 +1,2 @@
 cd %cd%
-start yarn watch
+start yarn watch --all

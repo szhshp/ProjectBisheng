@@ -1,4 +1,5 @@
-import { fullWidthCharsMapping } from '@src/data/fullwidthCharsMapping'
+import { getFullWidthCharsMapping } from '@src/data/fullwidthCharsMapping'
+import { BishengMainConfig, BishengMainFeature } from '@src/types'
 
 const DEBUG = 0
 
@@ -6,12 +7,18 @@ const DEBUG = 0
  * @name replacePunctuations
  * @desc Add extra space after punctuations
  */
-export const biShengFormat = (
-  content: string,
-  config = {
-    ellipsisCount: 3
+export const biShengFormat = (content: string, config: BishengMainConfig): string => {
+  const ellipsisCount = config?.ellipsisCount || 3
+  const useSimpleQuotation = config?.useSimpleQuotation
+  const mainFeature: BishengMainFeature = config?.mainFeature || {
+    markdownLinksInFullWidth: true,
+    boldTextBlock: true,
+    blankLines: true,
+    duplicatedPunctuations: true,
+    fullWidthCharsAndFollowingSpaces: true,
+    addSpacesBetweenChineseCharAndAlphabeticalChar: true
   }
-): string => {
+
   // [/([\u4e00-\u9fa5\u3040-\u30FF])\.($|\s*)/g, "$1。"],
   // [/([\u4e00-\u9fa5\u3040-\u30FF]),\s*/g, "$1，"],
   // [/([\u4e00-\u9fa5\u3040-\u30FF]);\s*/g, "$1；"],
@@ -37,8 +44,8 @@ export const biShengFormat = (
     boldTextBlock: [['(?<!\\s)(\\*\\*.*?\\*\\*)(?!\\s)', ' $1 ']],
     blankLines: [['(\\s+\\n){3,}', '\n\n']],
     duplicatedPunctuations: [
-      ['。', Array(config.ellipsisCount).fill('.').join('')],
-      ['\\.', Array(config.ellipsisCount).fill('.').join('')],
+      ['。', Array(ellipsisCount).fill('.').join('')],
+      ['\\.', Array(ellipsisCount).fill('.').join('')],
       ['！', '!!!'],
       ['\\!', '!!!'],
       ['？', '???'],
@@ -48,9 +55,12 @@ export const biShengFormat = (
       `${toReplace}{3,}`,
       replaceValue
     ]),
-    fullWidthCharsAndFollowingSpaces: fullWidthCharsMapping.map<[string, string]>(
-      ([cnSign, enSign]) => [`${cnSign}[ ]*`, `${enSign}`]
-    ),
+    fullWidthCharsAndFollowingSpaces: getFullWidthCharsMapping({
+      useSimpleQuotation
+    }).map<[string, string]>(([cnSign, enSign]) => [
+      `${cnSign}[ ]*`,
+      `${enSign}`
+    ]),
     addSpacesBetweenChineseCharAndAlphabeticalChar: [
       [
         `([${ALPHABETICAL_AND_NUM}\\]!;\\,\\.\\:\\?\\)])([*]*[${CHINESE_CHARS}])`,
@@ -66,8 +76,10 @@ export const biShengFormat = (
       console.log(key)
     }
     replaceSchema[key].forEach(([regexStr, replace, flags]) => {
-      const regex = new RegExp(regexStr, flags || 'g')
-      content = content.replace(regex, replace)
+      if (mainFeature[key] === true) {
+        const regex = new RegExp(regexStr, flags || 'g')
+        content = content.replace(regex, replace)
+      }
     })
     if (DEBUG) {
       console.log('--------------AFTER--------------')
@@ -78,6 +90,6 @@ export const biShengFormat = (
   return content
 }
 
-export const format = (content: string): string => {
-  return biShengFormat(content)
+export const format = (content: string, config?: BishengMainConfig): string => {
+  return biShengFormat(content, config)
 }
