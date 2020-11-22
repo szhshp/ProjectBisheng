@@ -56,10 +56,18 @@ const config = {
      */
     duplicatedPunctuations: true,
 
-    /* 决定是否格式化全角符号/数字/英文字符 */
-    fullWidthCharsAndFollowingSpaces: true,
+    /* 
+      决定是否格式化全角符号/数字/英文字符
+        before: 这里是一段中文，带着中文符号。这里是一段ChineseText！带着Chinese Punctuations？
+        after: 这里是一段中文, 带着中文符号. 这里是一段 ChineseText! 带着 Chinese Punctuations?
+    */
+   fullWidthCharsAndFollowingSpaces: true,
 
-    /* 决定是否格式化半角符号/数字/英文字符 */
+    /* 
+      决定是否格式化半角符号/数字/英文字符
+        before: 这一幕被一楼 DHBM 系统监控到,30 秒内关闭了系统.
+        after: 这一幕被一楼 DHBM 系统监控到, 30 秒内关闭了系统.
+     */
     halfWidthCharsAndFollowingSpaces: true,
 
     /* 决定是否在中文和英文之间添加空格 */
