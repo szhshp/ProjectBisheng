@@ -27,14 +27,11 @@
 
 ## TODO
 
-
-## TODO
-
 - [x] Readme
 - [x] Git Ignore /dist
 - [x] Core
   - [x] 繁体支持
-  - [ ] 符号与英文之间添加空格 (可选)
+  - [x] 符号与英文之间添加空格 (可选)
 - [x] NPM
   - [ ] NPM 发布忽略 src 文件夹
 - [ ] VSC Extension
@@ -45,3 +42,5 @@
   - [x] 配置选项
   - [x] Format Selected
 - [ ] 网页端实现
+
+
