@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {  } from "react";
 import Container from "@material-ui/core/Container";
 import {
   Box,
   Grid,
-  Link,
   makeStyles,
-  Theme,
-  Typography,
 } from "@material-ui/core";
 import ReactMde from "react-mde";
 import * as Showdown from "showdown";
