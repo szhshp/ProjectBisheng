@@ -5,16 +5,20 @@
   "dependencies": {
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
-    "@emotion/styled": "latest",
     "@emotion/server": "latest",
+    "@emotion/styled": "latest",
     "@material-ui/core": "next",
+    "@types/showdown": "^1.9.3",
+    "bisheng-formatter-core": "latest",
     "clsx": "latest",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-mde": "^11.0.0",
+    "showdown": "^1.9.1"
   },
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 3002",
     "build": "next build",
     "start": "next start",
     "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
