@@ -1,9 +1,9 @@
-import React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheets } from '@material-ui/core/styles';
-import createEmotionServer from '@emotion/server/create-instance';
-import theme from '../src/theme';
-import { cache } from './_app';
+import React from "react";
+import Document, { Html, Head, Main, NextScript } from "next/document";
+import { ServerStyleSheets } from "@material-ui/core/styles";
+import createEmotionServer from "@emotion/server/create-instance";
+import theme from "../src/theme";
+import { cache } from "./_app";
 
 const { extractCritical } = createEmotionServer(cache);
 
@@ -18,6 +18,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
+          <link rel="icon" href="/assets/logo.png" />
         </Head>
         <body>
           <Main />
@@ -73,7 +74,7 @@ MyDocument.getInitialProps = async (ctx) => {
       sheets.getStyleElement(),
       <style
         key="emotion-style-tag"
-        data-emotion-css={styles.ids.join(' ')}
+        data-emotion-css={styles.ids.join(" ")}
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: styles.css }}
       />,

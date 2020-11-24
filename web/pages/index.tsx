@@ -1,10 +1,6 @@
-import React, {  } from "react";
+import React from "react";
 import Container from "@material-ui/core/Container";
-import {
-  Box,
-  Grid,
-  makeStyles,
-} from "@material-ui/core";
+import { Box, Grid, makeStyles, Button } from "@material-ui/core";
 import ReactMde from "react-mde";
 import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
@@ -54,11 +50,17 @@ export default function Index() {
           />
         </Grid>
       </Grid>
-      <Box
-        onClick={() => {
-          setValue(bishengFormat(value));
-        }}
-      ></Box>
+      <Box width="100%" display="flex" justifyContent="center" p={2}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            setValue(bishengFormat(value));
+          }}
+        >
+          Format
+        </Button>
+      </Box>
       <Box my={4}>
         <Copyright />
       </Box>
