@@ -18,6 +18,7 @@
     "showdown": "^1.9.1"
   },
   "scripts": {
+    "check": "tsc -noEmit",
     "dev": "next -p 3002",
     "build": "next build",
     "start": "next start",

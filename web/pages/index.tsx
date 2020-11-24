@@ -9,7 +9,6 @@ import ReactMde from "react-mde";
 import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import Copyright from "../src/Copyright";
-import ProTip from "../src/ProTip";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { bishengFormat } from "bisheng-formatter-core";
 
@@ -61,7 +60,6 @@ export default function Index() {
         }}
       ></Box>
       <Box my={4}>
-        <ProTip />
         <Copyright />
       </Box>
     </Container>
