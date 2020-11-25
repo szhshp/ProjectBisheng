@@ -1,5 +1,5 @@
 cd %cd%
 cd ..
 echo Login before publish
-start npm publish
+start yarn publish
 pause
