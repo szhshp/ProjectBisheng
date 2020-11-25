@@ -45,7 +45,7 @@ export const biShengFormat = (
     markdownLinksInFullWidth: [
       ['\\[([^\\]]+)\\][（(]([^)]+)[）)]', '[$1]($2)']
     ],
-    boldTextBlock: [['\\s*(\\*\\*[^\\*]*?\\*\\*)\\s*', ' $1 ']],
+    boldTextBlock: [['\\s*(\\*\\*[^\\*]*?\\*\\*)\\s*', '$1']],
     blankLines: [['(\\s+\\n){3,}', '\n\n']],
     duplicatedPunctuations: [
       ['。', Array(ellipsisCount).fill('.').join('')],
@@ -65,15 +65,18 @@ export const biShengFormat = (
       `${cnSign}[ ]*`,
       `${enSign}`
     ]),
-    halfWidthCharsAndFollowingSpaces: [[',', ', ']].map<[string, string]>(
-      ([before, after]) => [`${before}[ ]*`, `${after}`]
+    halfWidthCharsAndFollowingSpaces: [
+      [',[ ]*', ', '],
+      ['[ /s]*(`[^`\\n]+?`)[ /s]*', ' $1 ']
+    ].map<[string, string]>(
+      ([before, after]) => [`${before}`, `${after}`]
     ),
     addSpacesBetweenChineseCharAndAlphabeticalChar: [
       [
-        `([${ALPHABETICAL_AND_NUM}\\]!;\\,\\.\\:\\?\\)])([*]*[${CHINESE_CHARS}])`,
+        `([${ALPHABETICAL_AND_NUM}\\]!;\\,\\.\\:\\?\\)])([${CHINESE_CHARS}])`,
         '$1 $2'
       ],
-      [`([${CHINESE_CHARS}][*]*)([${ALPHABETICAL_AND_NUM}\\[\\(])`, '$1 $2']
+      [`([${CHINESE_CHARS}])([${ALPHABETICAL_AND_NUM}\\[\\(])`, '$1 $2']
     ]
   }
 

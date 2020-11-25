@@ -145,37 +145,49 @@ const testCases: testCaseSet[] = [
         }
       },
       {
-        desc: '粗体文本前后添加空格1',
-        before:
-          '存在Table**如果**Schema中不存在,将**Data中存在的数据X**插入Table',
-        after:
-          '存在 Table **如果** Schema 中不存在, 将 **Data 中存在的数据 X** 插入 Table'
+        desc: '清除粗体文本前后的空格',
+        before: '清除   **粗体文本**   前后的   **空格**...',
+        after: '清除**粗体文本**前后的**空格**...'
       },
       {
-        desc: '粗体文本前后添加空格2',
-        before:
-          '他曾经任职**新华**公司核心开发部, 负责**X80**的**Lucky OS**适配性设计与开发————这段经验非常适合这家新公司的跨平台媒体系统项目.',
-        after:
-          '他曾经任职 **新华** 公司核心开发部, 负责 **X80** 的 **Lucky OS** 适配性设计与开发————这段经验非常适合这家新公司的跨平台媒体系统项目.'
-      },
-      {
-        desc: '对于粗体文本, 如果在粗体文本之间已经有空格，不添加新的空格。',
-        before:
-          '对于**粗体**文本, 如果在 **粗体文本** 之间已经有空格，不应该添加新的空格。',
-        after:
-          '对于 **粗体** 文本, 如果在 **粗体文本** 之间已经有空格, 不应该添加新的空格. '
-      },
-      {
-        desc: '粗体文本 Disabled',
-        before:
-          '对于**粗体**文本, 如果在 **粗体文本** 之间已经有空格，不应该添加新的空格。',
-        after:
-          '对于**粗体**文本, 如果在 **粗体文本** 之间已经有空格，不应该添加新的空格。',
+        desc: '清除粗体文本前后的空格 Disabled',
+        before: '这次不清除   **粗体文本**   前后的   **空格**...',
+        after: '这次不清除   **粗体文本**   前后的   **空格**...',
         config: {
           mainFeature: {
             boldTextBlock: false
           }
         }
+      },
+      {
+        desc: '清除行内引用前后的多余空格',
+        before: '清除   `粗体文本`   前后的   `空格`...',
+        after: '清除 `粗体文本` 前后的 `空格` ...'
+      },
+      {
+        desc: '多行代码应该不受影响',
+        before: `
+多行代码应该 \`不受\` 影响
+
+\`\`\`js
+const szhshp = "cool"
+\`\`\`
+
+\`\`\`js
+const szhshp = "cool"
+\`\`\`
+`,
+        after: `
+多行代码应该 \`不受\` 影响
+
+\`\`\`js
+const szhshp = "cool"
+\`\`\`
+
+\`\`\`js
+const szhshp = "cool"
+\`\`\`
+`
       },
       {
         desc: '替换全角符号+中英文之间添加空格',
@@ -273,12 +285,7 @@ const testCases: testCaseSet[] = [
       {
         desc: '实际 Markdown 格式化',
         before: `
----
-title: Git Pages 发布后 404 Error
-tags: [Github, Pages]
----
-
-关于Pages发布后很多文件404错误
+# 关于Pages发布后很多文件404错误
 
 Github发布之后发现JS,CSS全部404,因为发布的 URL 是 \`https://szhielelp.github.io/ProjectGaia/\` 然而 JS 和 CSS 放到了根目录下面 \`https://szhielelp.github.io/js/\`
 
@@ -292,17 +299,11 @@ Github发布之后发现JS,CSS全部404,因为发布的 URL 是 \`https://szhiel
 
 可以设置baseurl为repo名字，一次性解决所有问题，site.url都不需要了
 
-Coding Pages不需要这样处理
-`,
+Coding Pages不需要这样处理`,
         after: `
----
-title: Git Pages 发布后 404 Error
-tags: [Github, Pages]
----
+# 关于 Pages 发布后很多文件 404 错误
 
-关于 Pages 发布后很多文件 404 错误
-
-Github 发布之后发现 JS, CSS 全部 404, 因为发布的 URL 是 \`https://szhielelp.github.io/ProjectGaia/\` 然而 JS 和 CSS 放到了根目录下面 \`https://szhielelp.github.io/js/\`
+Github 发布之后发现 JS, CSS 全部 404, 因为发布的 URL 是 \`https://szhielelp.github.io/ProjectGaia/\` 然而 JS 和 CSS 放到了根目录下面 \`https://szhielelp.github.io/js/\` 
 
 ## Solution 1
 
@@ -314,8 +315,7 @@ Github 发布之后发现 JS, CSS 全部 404, 因为发布的 URL 是 \`https://
 
 可以设置 baseurl 为 repo 名字, 一次性解决所有问题, site.url 都不需要了
 
-Coding Pages 不需要这样处理
-`
+Coding Pages 不需要这样处理`
       },
       {
         desc: '代码段应该不受影响',
