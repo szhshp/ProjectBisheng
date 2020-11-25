@@ -2,7 +2,7 @@
   "name": "bisheng-formatter-vscode-extension",
   "displayName": "Bisheng Markdown Formatter",
   "description": "毕昇 - Markdown 中英文混排工具的 VSC 插件实现",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "repository": "https://github.com/szhielelp/ProjectBisheng",
   "engines": {
     "vscode": "^1.51.0"
@@ -57,6 +57,11 @@
           "type": "boolean",
           "default": true,
           "description": "是否格式化全角符号 / 数字 / 英文字符"
+        },
+        "mainFeature.halfWidthCharsAndFollowingSpaces": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否格式化半角符号前后的空格"
         },
         "mainFeature.addSpacesBetweenChineseCharAndAlphabeticalChar": {
           "type": "boolean",
