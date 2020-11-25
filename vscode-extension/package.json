@@ -2,7 +2,7 @@
   "name": "bisheng-formatter-vscode-extension",
   "displayName": "Bisheng Markdown Formatter",
   "description": "毕昇 - Markdown 中英文混排工具的 VSC 插件实现",
-  "version": "0.2.0",
+  "version": "0.2.4",
   "repository": "https://github.com/szhielelp/ProjectBisheng",
   "engines": {
     "vscode": "^1.51.0"
@@ -41,7 +41,7 @@
         "mainFeature.boldTextBlock": {
           "type": "boolean",
           "default": true,
-          "description": "是否在粗体两侧添加空格\n示例: 这里是**粗体**文本 -> 这里是 **粗体** 文本"
+          "description": "清除粗体文本之间的空格\n示例: 这里是   **粗体**   文本 -> 这里是**粗体**文本"
         },
         "mainFeature.blankLines": {
           "type": "boolean",
@@ -98,7 +98,12 @@
     "ts-loader": "^8.0.11",
     "typescript": "^4.0.2",
     "vscode-test": "^1.4.0",
-    "webpack": "^4.44.2",
+    "webpack": "^5.6.0",
     "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "babel-loader": "^8.2.1"
   }
 }
