@@ -3,16 +3,20 @@
 
 
 
-
-
 <h1 align="center">
   <a href="https://github.com/szhielelp/ProjectBisheng">
     毕昇工程
   </a>
+
 </h1>
 
 
 <div align=center><img src="./assets/logo.png"/></div>
+
+
+![](https://img.shields.io/npm/v/bisheng-formatter-core)
+![](https://img.shields.io/github/languages/top/szhielelp/ProjectBisheng)
+![](https://img.shields.io/npm/l/bisheng-formatter-core)
 
 
 > '毕昇' - 中英文混排工具, 适用于中英文混合排版
