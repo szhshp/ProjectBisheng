@@ -47,18 +47,17 @@ export const biShengFormat = (
     ],
     boldTextBlock: [['\\s*(\\*\\*[^\\*]*?\\*\\*)\\s*', '$1']],
     blankLines: [['(\\s+\\n){3,}', '\n\n']],
-    duplicatedPunctuations: [
-      ['。', Array(ellipsisCount).fill('.').join('')],
-      ['\\.', Array(ellipsisCount).fill('.').join('')],
-      ['！', Array(ellipsisCount).fill('!').join('')],
-      ['\\!', Array(ellipsisCount).fill('!').join('')],
-      ['？', Array(ellipsisCount).fill('?').join('')],
-      ['\\?', Array(ellipsisCount).fill('?').join('')],
+    duplicatedPunctuations: ([
+      ['[。\\.]', '.'],
+      ['[！\\!]', '!'],
+      ['[？\\?]', '?'],
       ['，', '，']
-    ].map<[string, string]>(([toReplace, replaceValue]) => [
-      `${toReplace}{3,}`,
-      replaceValue
-    ]),
+    ] as [string, string, number?][]).map<[string, string]>(
+      ([toReplace, replaceValue, times = 3]) => [
+        `${toReplace}{3,}`,
+        Array(ellipsisCount).fill(replaceValue).join('')
+      ]
+    ),
     fullWidthCharsAndFollowingSpaces: getFullWidthCharsMapping({
       useSimpleQuotation
     }).map<[string, string]>(([cnSign, enSign]) => [
@@ -68,9 +67,7 @@ export const biShengFormat = (
     halfWidthCharsAndFollowingSpaces: [
       [',[ ]*', ', '],
       ['[ /s]*(`[^`\\n]+?`)[ /s]*', ' $1 ']
-    ].map<[string, string]>(
-      ([before, after]) => [`${before}`, `${after}`]
-    ),
+    ].map<[string, string]>(([before, after]) => [`${before}`, `${after}`]),
     addSpacesBetweenChineseCharAndAlphabeticalChar: [
       [
         `([${ALPHABETICAL_AND_NUM}\\]!;\\,\\.\\:\\?\\)])([${CHINESE_CHARS}])`,
