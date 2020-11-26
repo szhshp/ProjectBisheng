@@ -1313,10 +1313,10 @@ binary-extensions@^2.0.0:
   resolved "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.1.0.tgz#30fa40c9e7fe07dbc895678cd287024dea241dd9"
   integrity sha512-1Yj8h9Q+QDF5FzhMs/c9+6UntbD5MkRfRwac8DoEm9ZfUBZ7tZ55YcGVAzEe4bXsdQHEk+s9S5wsOKVdZrw0tQ==
 
-bisheng-formatter-core@0.2.5:
-  version "0.2.5"
-  resolved "https://registry.npmjs.org/bisheng-formatter-core/-/bisheng-formatter-core-0.2.5.tgz#1d68a5ccb712ffb8812bfde682bd9e485a6e1a79"
-  integrity sha512-fKAxFIhDqxSPTh/8kgJCPzTnbcWWFxfAc6zRXWi4yL5F/AUgQNDX7iLkicxJP5Jt5S5AY5mYFUGPDSTSXuZkSw==
+bisheng-formatter-core@^0.2.7:
+  version "0.2.7"
+  resolved "https://registry.npmjs.org/bisheng-formatter-core/-/bisheng-formatter-core-0.2.7.tgz#465e4bd152c659e97a0597064c925aa5abeefff6"
+  integrity sha512-Nwi12aSLEyAik/4ThgIdVKOXNSDsRO6GQR5EJAmCl9Kzz2RCuyQrklTl1J+Z/kZipRV7YA3IAVVr2vSabm6PKg==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
