@@ -27,7 +27,19 @@ const useStyles = makeStyles(() => ({
 
 export default function Index() {
   const classes = useStyles();
-  const [value, setValue] = React.useState("**Hello world!!!**");
+  const [value, setValue] = React.useState(`
+# 毕昇工程
+
+这里有一段使用了各种**全角和半角中英文符号**    的段落.     
+
+     
+     
+    
+上面有一堆长度不等的空格.
+
+点击下方\`format\`   即可进行格式化。。。。......
+
+  `);
   const { height } = useWindowDimensions();
   const [selectedTab, setSelectedTab] = React.useState<"write" | "preview">(
     "write"
