@@ -1,4 +1,4 @@
-import { BishengMainConfig } from '@src/types'
+import { BishengMainConfig } from '../types'
 import { format } from '../formatters'
 
 type testCase = {

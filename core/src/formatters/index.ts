@@ -1,5 +1,5 @@
-import { getFullWidthCharsMapping } from '@src/data/fullwidthCharsMapping'
-import { BishengMainConfig, BishengMainFeature } from '@src/types'
+import { getFullWidthCharsMapping } from '../data/fullwidthCharsMapping'
+import { BishengMainConfig, BishengMainFeature } from '../types'
 
 const DEBUG = 0
 
