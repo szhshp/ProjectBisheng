@@ -15,7 +15,8 @@ module.exports = {
       alias: {
         '@src': './src',
       }
-    }]
+    }],
+    ["@babel/plugin-proposal-optional-chaining"]
   ],
   ignore: [
     '**/*.spec.ts'
