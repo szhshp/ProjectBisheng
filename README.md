@@ -3,16 +3,30 @@
 
 
 
-
-
 <h1 align="center">
   <a href="https://github.com/szhielelp/ProjectBisheng">
     毕昇工程
   </a>
+
 </h1>
 
 
 <div align=center><img src="./assets/logo.png"/></div>
+
+<p align="center">
+  <img src="https://img.shields.io/npm/v/bisheng-formatter-core"/>
+
+  <br/>
+  <img src="https://img.shields.io/badge/link-996.icu-red.svg"/>
+  <img src="https://img.shields.io/badge/license-Anti%20996-blue.svg"/>
+    <br/>
+      <img src="https://img.shields.io/github/languages/top/szhielelp/ProjectBisheng"/>
+
+  <img src="https://img.shields.io/badge/License-MIT-orange"/>
+<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/szhielelp/ProjectBisheng">
+</p>
+
+
 
 
 > '毕昇' - 中英文混排工具, 适用于中英文混合排版
