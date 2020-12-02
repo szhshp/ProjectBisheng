@@ -1,0 +1,14 @@
+export const CHINESE_CHARS = "\\u4e00-\\u9fa5\\u3040-\\u30FF";
+export const ALPHABETICAL_AND_NUM = "a-zA-Z0-9";
+export const WHITE_SPACE = "\\s";
+export const NOT_WHITE_SPACE = "\\S";
+export const STAR_CHAR = "\\*";
+export const LINE_BREAK = "\\n";
+export const SPACE_CHAR = " ";
+export const BACK_SLASH = "\\";
+export const LEFT_OPEN_PAREN = "\\(";
+export const LEFT_OPEN_PAREN_CN = "（";
+export const RIGHT_OPEN_PAREN_CN = "）";
+export const RIGHT_OPEN_PAREN = "\\)";
+export const LEFT_OPEN_BARCKET = "\\[";
+export const RIGHT_OPEN_BARCKET = "\\]";
