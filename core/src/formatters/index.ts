@@ -122,13 +122,13 @@ export const biShengFormat = (
       [compose(COMMA, zeroOrMany(SPACE_CHAR)), ", "],
       [
         compose(
-          zeroOrMany(SPACE_CHAR),
+          zeroOrMany(set(SPACE_CHAR, "\\f\\r\\t\\v")),
           group(
             GRAVE,
             zeroOrOne(oneOrMany(set(not(GRAVE, LINE_BREAK)))),
             GRAVE
           ),
-          zeroOrMany(SPACE_CHAR)
+          zeroOrMany(set(SPACE_CHAR, "\\f\\r\\t\\v"))
         ),
         " $1 ",
       ],

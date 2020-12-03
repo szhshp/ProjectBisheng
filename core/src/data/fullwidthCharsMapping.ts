@@ -4,6 +4,7 @@ export const getFullWidthCharsMapping = ({
   useSimpleQuotation: boolean;
 }): [string, string][] => {
   return [
+    [',', ', '],
     ['，', ', '],
     ['；', '; '],
     ['！', '! '],
