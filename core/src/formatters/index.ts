@@ -117,6 +117,7 @@ export const biShengFormat = (
       enSign,
     ]),
     halfWidthCharsAndFollowingSpaces: [
+      [compose(COMMA, zeroOrMany(SPACE_CHAR)), ", "],
       [
         compose(
           zeroOrMany(set(SPACE_CHAR, "\\f\\r\\t\\v")),
