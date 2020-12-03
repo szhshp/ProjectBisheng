@@ -1314,9 +1314,9 @@ binary-extensions@^2.0.0:
   integrity sha512-1Yj8h9Q+QDF5FzhMs/c9+6UntbD5MkRfRwac8DoEm9ZfUBZ7tZ55YcGVAzEe4bXsdQHEk+s9S5wsOKVdZrw0tQ==
 
 bisheng-formatter-core@^0.2.7:
-  version "0.2.9"
-  resolved "https://registry.npmjs.org/bisheng-formatter-core/-/bisheng-formatter-core-0.2.9.tgz#26eb52249b1539981dfa166b4fc2e34ec4b5ff11"
-  integrity sha512-jUnCxzd0ZicwRQEkTZT7lCyNHr3VbvKOEzXjL4VWZV1jVX4QtSYK1RxmrPgH45eia/INIK5OqhVdBQN1UwViSw==
+  version "0.2.10"
+  resolved "https://registry.npmjs.org/bisheng-formatter-core/-/bisheng-formatter-core-0.2.10.tgz#00670f30aefface3c21cbc7db1b5316a727045a1"
+  integrity sha512-cyky+3A/sE7n3oxzfJxYQ5TmKcZkBicib5QhRia6a6Cwv49588s7WUEIJ444ZSJzU7UM2KcZJM+08KlnwAm6cQ==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
