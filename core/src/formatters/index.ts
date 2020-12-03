@@ -93,7 +93,6 @@ export const biShengFormat = (
       ],
       ["\\-\\*\\*", "- **"],
     ],
-
     blankLines: [
       [
         multiple(group(oneOrMany(WHITE_SPACE), oneOrMany(LINE_BREAK)), 3),
@@ -104,7 +103,6 @@ export const biShengFormat = (
       [set(PERIOD, PERIOD_CN), "."],
       [set(EXCLAMATION, EXCLAMATION_CN), "!"],
       [set(QUESTION_MARK, QUESTION_MARK_CN), "?"],
-      [set(COMMA, COMMA_CN), ","],
     ] as [string, string, number?][]).map<[string, string]>(
       // Default to clean the punctuations duplicated for 3 times
       ([regexToReplace, replaceValue, duplicatedTimes = 3]) => [
@@ -119,7 +117,6 @@ export const biShengFormat = (
       enSign,
     ]),
     halfWidthCharsAndFollowingSpaces: [
-      [compose(COMMA, zeroOrMany(SPACE_CHAR)), ", "],
       [
         compose(
           zeroOrMany(set(SPACE_CHAR, "\\f\\r\\t\\v")),
