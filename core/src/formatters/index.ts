@@ -1,7 +1,44 @@
-import { getFullWidthCharsMapping } from '../data/fullwidthCharsMapping'
-import { BishengMainConfig, BishengMainFeature } from '../types'
+import {
+  CHINESE_CHARS,
+  ALPHABETICAL_AND_NUM,
+  WHITE_SPACE,
+  STAR,
+  NOT_WHITE_SPACE,
+  LINE_BREAK,
+  SPACE_CHAR,
+  LEFT_OPEN_PAREN,
+  RIGHT_OPEN_PAREN,
+  LEFT_OPEN_BARCKET,
+  RIGHT_OPEN_BARCKET,
+  LEFT_OPEN_PAREN_CN,
+  RIGHT_OPEN_PAREN_CN,
+  GRAVE,
+  COMMA,
+  PERIOD,
+  PERIOD_CN,
+  EXCLAMATION,
+  EXCLAMATION_CN,
+  COMMA_CN,
+  QUESTION_MARK,
+  QUESTION_MARK_CN,
+  COLON,
+  SEMICOLON,
+} from "../data/regexSet";
+import { getFullWidthCharsMapping } from "../data/fullwidthCharsMapping";
+import { BishengMainConfig, BishengMainFeature } from "../types";
+import {
+  group,
+  set,
+  not,
+  zeroOrMany,
+  zeroOrOne,
+  multiple,
+  oneOrMany,
+  compose,
+} from "./regexUtils";
 
-const DEBUG = 0
+const DEBUG = 0;
+const DEBUG_SINGLE_SCHEMA: string = "boldTextBlock";
 
 /**
  * @name replacePunctuations
@@ -11,8 +48,8 @@ export const biShengFormat = (
   content: string,
   config: BishengMainConfig
 ): string => {
-  const ellipsisCount = config?.ellipsisCount || 3
-  const useSimpleQuotation = config?.useSimpleQuotation
+  const ellipsisCount = config?.ellipsisCount || 3;
+  const useSimpleQuotation = config?.useSimpleQuotation;
   const mainFeature: BishengMainFeature = config?.mainFeature || {
     markdownLinksInFullWidth: true,
     boldTextBlock: true,
@@ -20,83 +57,129 @@ export const biShengFormat = (
     duplicatedPunctuations: true,
     fullWidthCharsAndFollowingSpaces: true,
     halfWidthCharsAndFollowingSpaces: true,
-    addSpacesBetweenChineseCharAndAlphabeticalChar: true
-  }
+    addSpacesBetweenChineseCharAndAlphabeticalChar: true,
+  };
 
-  // [/([\u4e00-\u9fa5\u3040-\u30FF])\.($|\s*)/g, "$1。"],
-  // [/([\u4e00-\u9fa5\u3040-\u30FF]),\s*/g, "$1，"],
-  // [/([\u4e00-\u9fa5\u3040-\u30FF]);\s*/g, "$1；"],
-  // [/([\u4e00-\u9fa5\u3040-\u30FF])!\s*/g, "$1！"],
-  // [/([\u4e00-\u9fa5\u3040-\u30FF]):\s*/g, "$1："],
-  // [/([\u4e00-\u9fa5\u3040-\u30FF])\?\s*/g, "$1？"],
-  // [/([\u4e00-\u9fa5\u3040-\u30FF])\\\s*/g, "$1、"],
-  // [/\(([\u4e00-\u9fa5\u3040-\u30FF])/g, "（$1"],
-  // [/([\u4e00-\u9fa5\u3040-\u30FF])\)/g, "$1）"],
-  // [/。\{3,}/g, "......"],
-  // [/([！？])$1{3,}/g, "$1$1$1"],
-  // [/([。，；：、“”『』〖〗《》])\1{1,}/g, "$1"],
-
-  const CHINESE_CHARS = '\\u4e00-\\u9fa5\\u3040-\\u30FF'
-  const ALPHABETICAL_AND_NUM = 'a-zA-Z0-9'
+  /**
+   * @name replaceSchema
+   * @format
+   *  [schemaName]: [regex, replaceValue, relaceFlag(global or multiline, etc)][];
+   */
 
   const replaceSchema: {
-    [key: string]: [string, string, string?][];
+    [schemaName: string]: [string, string, string?][];
   } = {
     markdownLinksInFullWidth: [
-      ['\\[([^\\]]+)\\][（(]([^)]+)[）)]', '[$1]($2)']
+      [
+        compose(
+          LEFT_OPEN_BARCKET,
+          group(oneOrMany(set(not(RIGHT_OPEN_BARCKET)))),
+          RIGHT_OPEN_BARCKET,
+          set(LEFT_OPEN_PAREN, LEFT_OPEN_PAREN_CN),
+          group(oneOrMany(set(not(RIGHT_OPEN_PAREN)))),
+          set(RIGHT_OPEN_PAREN, RIGHT_OPEN_PAREN_CN)
+        ),
+        "[$1]($2)",
+      ],
     ],
-    boldTextBlock: [['\\s*(\\*\\*[^\\*]*?\\*\\*)\\s*', '$1']],
-    blankLines: [['(\\s+\\n){3,}', '\n\n']],
+    boldTextBlock: [
+      [
+        compose(
+          zeroOrMany(set(SPACE_CHAR, "\\f\\r\\t\\v")),
+          group(STAR, STAR, zeroOrMany(set(not(STAR))), STAR, STAR),
+          zeroOrMany(set(SPACE_CHAR, "\\f\\r\\t\\v"))
+        ),
+        "$1",
+      ],
+      ["\\-\\*\\*", "- **"],
+    ],
+    blankLines: [
+      [
+        multiple(group(oneOrMany(WHITE_SPACE), oneOrMany(LINE_BREAK)), 3),
+        "\n\n",
+      ],
+    ],
     duplicatedPunctuations: ([
-      ['[。\\.]', '.'],
-      ['[！\\!]', '!'],
-      ['[？\\?]', '?'],
-      ['，', '，']
+      [set(PERIOD, PERIOD_CN), "."],
+      [set(EXCLAMATION, EXCLAMATION_CN), "!"],
+      [set(QUESTION_MARK, QUESTION_MARK_CN), "?"],
     ] as [string, string, number?][]).map<[string, string]>(
-      ([toReplace, replaceValue, times = 3]) => [
-        `${toReplace}{3,}`,
-        Array(ellipsisCount).fill(replaceValue).join('')
+      // Default to clean the punctuations duplicated for 3 times
+      ([regexToReplace, replaceValue, duplicatedTimes = 3]) => [
+        multiple(regexToReplace, duplicatedTimes),
+        Array(ellipsisCount).fill(replaceValue).join(""),
       ]
     ),
     fullWidthCharsAndFollowingSpaces: getFullWidthCharsMapping({
-      useSimpleQuotation
+      useSimpleQuotation,
     }).map<[string, string]>(([cnSign, enSign]) => [
-      `${cnSign}[ ]*`,
-      `${enSign}`
+      group(cnSign, zeroOrMany(SPACE_CHAR)),
+      enSign,
     ]),
     halfWidthCharsAndFollowingSpaces: [
-      [',[ ]*', ', '],
-      ['[ /s]*(`[^`\\n]+?`)[ /s]*', ' $1 ']
+      [compose(COMMA, zeroOrMany(SPACE_CHAR)), ", "],
+      [
+        compose(
+          zeroOrMany(set(SPACE_CHAR, "\\f\\r\\t\\v")),
+          group(
+            GRAVE,
+            zeroOrOne(oneOrMany(set(not(GRAVE, LINE_BREAK)))),
+            GRAVE
+          ),
+          zeroOrMany(set(SPACE_CHAR, "\\f\\r\\t\\v"))
+        ),
+        " $1 ",
+      ],
     ].map<[string, string]>(([before, after]) => [`${before}`, `${after}`]),
     addSpacesBetweenChineseCharAndAlphabeticalChar: [
       [
-        `([${ALPHABETICAL_AND_NUM}\\]!;\\,\\.\\:\\?\\)])([${CHINESE_CHARS}])`,
-        '$1 $2'
+        compose(
+          group(
+            set(
+              ALPHABETICAL_AND_NUM,
+              RIGHT_OPEN_BARCKET,
+              EXCLAMATION,
+              SEMICOLON,
+              COMMA,
+              PERIOD,
+              COLON,
+              QUESTION_MARK,
+              RIGHT_OPEN_PAREN
+            )
+          ),
+          group(set(CHINESE_CHARS))
+        ),
+        "$1 $2",
       ],
-      [`([${CHINESE_CHARS}])([${ALPHABETICAL_AND_NUM}\\[\\(])`, '$1 $2']
-    ]
-  }
+      [
+        `${group(
+          set(CHINESE_CHARS)
+        )}([${ALPHABETICAL_AND_NUM}\\[${LEFT_OPEN_PAREN}])`,
+        "$1 $2",
+      ],
+    ],
+  };
 
-  Object.keys(replaceSchema).forEach((key) => {
-    if (DEBUG) {
-      console.log('--------------FORMAT--------------')
-      console.log(key)
-    }
-    replaceSchema[key].forEach(([regexStr, replace, flags]) => {
-      if (mainFeature[key] === true) {
-        const regex = new RegExp(regexStr, flags || 'g')
-        content = content.replace(regex, replace)
+  Object.keys(replaceSchema).forEach((schema) => {
+    replaceSchema[schema].forEach(([regexStr, replace, flags]) => {
+      if (mainFeature[schema] === true) {
+        const regex = new RegExp(regexStr, flags || "g");
+        content = content.replace(regex, replace);
+
+        if (
+          DEBUG &&
+          (schema === DEBUG_SINGLE_SCHEMA || DEBUG_SINGLE_SCHEMA === "")
+        ) {
+          console.log(regex);
+          console.log(content);
+        }
       }
-    })
-    if (DEBUG) {
-      console.log('--------------AFTER--------------')
-      console.log(content)
-    }
-  })
+    });
+  });
 
-  return content
-}
+  return content;
+};
 
 export const format = (content: string, config?: BishengMainConfig): string => {
-  return biShengFormat(content, config)
-}
+  return biShengFormat(content, config);
+};
