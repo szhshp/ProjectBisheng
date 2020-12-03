@@ -2,7 +2,7 @@ import {
   CHINESE_CHARS,
   ALPHABETICAL_AND_NUM,
   WHITE_SPACE,
-  STAR_CHAR,
+  STAR,
   NOT_WHITE_SPACE,
   LINE_BREAK,
   SPACE_CHAR,
@@ -12,6 +12,17 @@ import {
   RIGHT_OPEN_BARCKET,
   LEFT_OPEN_PAREN_CN,
   RIGHT_OPEN_PAREN_CN,
+  GRAVE,
+  COMMA,
+  PERIOD,
+  PERIOD_CN,
+  EXCLAMATION,
+  EXCLAMATION_CN,
+  COMMA_CN,
+  QUESTION_MARK,
+  QUESTION_MARK_CN,
+  COLON,
+  SEMICOLON,
 } from "../data/regexSet";
 import { getFullWidthCharsMapping } from "../data/fullwidthCharsMapping";
 import { BishengMainConfig, BishengMainFeature } from "../types";
@@ -21,8 +32,9 @@ import {
   not,
   zeroOrMany,
   zeroOrOne,
-  times,
+  multiple,
   oneOrMany,
+  compose,
 } from "./regexUtils";
 
 const DEBUG = 0;
@@ -47,74 +59,108 @@ export const biShengFormat = (
     addSpacesBetweenChineseCharAndAlphabeticalChar: true,
   };
 
+  /**
+   * @name replaceSchema
+   * @format
+   *  [schemaName]: [regex, replaceValue, relaceFlag(global or multiline, etc)][];
+   */
+
   const replaceSchema: {
-    [key: string]: [string, string, string?][];
+    [schemaName: string]: [string, string, string?][];
   } = {
     markdownLinksInFullWidth: [
       [
-        `${LEFT_OPEN_BARCKET}${group(
-          oneOrMany(set(not(RIGHT_OPEN_BARCKET)))
-        )}${RIGHT_OPEN_BARCKET}${set(
-          LEFT_OPEN_PAREN + LEFT_OPEN_PAREN_CN
-        )}${group(oneOrMany(set(not(RIGHT_OPEN_PAREN))))}${set(
-          RIGHT_OPEN_PAREN + RIGHT_OPEN_PAREN_CN
-        )}`,
+        compose(
+          LEFT_OPEN_BARCKET,
+          group(oneOrMany(set(not(RIGHT_OPEN_BARCKET)))),
+          RIGHT_OPEN_BARCKET,
+          set(LEFT_OPEN_PAREN, LEFT_OPEN_PAREN_CN),
+          group(oneOrMany(set(not(RIGHT_OPEN_PAREN)))),
+          set(RIGHT_OPEN_PAREN, RIGHT_OPEN_PAREN_CN)
+        ),
         "[$1]($2)",
       ],
     ],
     boldTextBlock: [
       [
-        `${group(set(not(CHINESE_CHARS + ALPHABETICAL_AND_NUM)))}${zeroOrMany(
-          WHITE_SPACE
-        )}(${STAR_CHAR}${STAR_CHAR}${zeroOrMany(
-          set(not(STAR_CHAR))
-        )}?${STAR_CHAR}${STAR_CHAR})${zeroOrMany(WHITE_SPACE)}${group(
-          zeroOrOne(NOT_WHITE_SPACE)
-        )}`,
+        compose(
+          group(set(not(CHINESE_CHARS, ALPHABETICAL_AND_NUM))),
+          zeroOrMany(WHITE_SPACE),
+          group(STAR, STAR, zeroOrMany(set(not(STAR))), STAR, STAR),
+          zeroOrMany(WHITE_SPACE),
+          group(zeroOrOne(NOT_WHITE_SPACE))
+        ),
         "$1 $2$3",
       ],
       [
-        `${group(set(CHINESE_CHARS + ALPHABETICAL_AND_NUM))}${zeroOrMany(
-          WHITE_SPACE
-        )}(${STAR_CHAR}${STAR_CHAR}${zeroOrMany(
-          set(not(STAR_CHAR))
-        )}?${STAR_CHAR}${STAR_CHAR})${zeroOrMany(WHITE_SPACE)}${group(
-          zeroOrOne(NOT_WHITE_SPACE)
-        )}`,
+        compose(
+          group(set(CHINESE_CHARS, ALPHABETICAL_AND_NUM)),
+          zeroOrMany(WHITE_SPACE),
+          group(STAR, STAR, zeroOrMany(set(not(STAR))), STAR, STAR),
+          zeroOrMany(WHITE_SPACE),
+          group(zeroOrOne(NOT_WHITE_SPACE))
+        ),
         "$1$2$3",
       ],
     ],
 
     blankLines: [
-      [times(group(oneOrMany(WHITE_SPACE) + oneOrMany(LINE_BREAK)), 3), "\n\n"],
+      [
+        multiple(group(oneOrMany(WHITE_SPACE), oneOrMany(LINE_BREAK)), 3),
+        "\n\n",
+      ],
     ],
     duplicatedPunctuations: ([
-      ["[。\\.]", "."],
-      ["[！\\!]", "!"],
-      ["[？\\?]", "?"],
-      ["，", "，"],
+      [set(PERIOD, PERIOD_CN), "."],
+      [set(EXCLAMATION, EXCLAMATION_CN), "!"],
+      [set(QUESTION_MARK, QUESTION_MARK_CN), "?"],
+      [set(COMMA, COMMA_CN), ","],
     ] as [string, string, number?][]).map<[string, string]>(
-      ([toReplace, replaceValue, multiple = 3]) => [
-        times(toReplace, multiple),
+      // Default to clean the punctuations duplicated for 3 times
+      ([regexToReplace, replaceValue, duplicatedTimes = 3]) => [
+        multiple(regexToReplace, duplicatedTimes),
         Array(ellipsisCount).fill(replaceValue).join(""),
       ]
     ),
     fullWidthCharsAndFollowingSpaces: getFullWidthCharsMapping({
       useSimpleQuotation,
     }).map<[string, string]>(([cnSign, enSign]) => [
-      `${cnSign}${zeroOrMany(SPACE_CHAR)}`,
-      `${enSign}`,
+      group(cnSign, zeroOrMany(SPACE_CHAR)),
+      enSign,
     ]),
     halfWidthCharsAndFollowingSpaces: [
-      [`,${zeroOrMany(SPACE_CHAR)}`, ", "],
+      [compose(COMMA, zeroOrMany(SPACE_CHAR)), ", "],
       [
-        `${zeroOrMany(SPACE_CHAR)}(\`[^\`\\n]+?\`)${zeroOrMany(SPACE_CHAR)}`,
+        compose(
+          zeroOrMany(SPACE_CHAR),
+          group(
+            GRAVE,
+            zeroOrOne(oneOrMany(set(not(GRAVE, LINE_BREAK)))),
+            GRAVE
+          ),
+          zeroOrMany(SPACE_CHAR)
+        ),
         " $1 ",
       ],
     ].map<[string, string]>(([before, after]) => [`${before}`, `${after}`]),
     addSpacesBetweenChineseCharAndAlphabeticalChar: [
       [
-        `([${ALPHABETICAL_AND_NUM}\\]!;,\\.:\\?${RIGHT_OPEN_PAREN}])([${CHINESE_CHARS}])`,
+        compose(
+          group(
+            set(
+              ALPHABETICAL_AND_NUM,
+              RIGHT_OPEN_BARCKET,
+              EXCLAMATION,
+              SEMICOLON,
+              COMMA,
+              PERIOD,
+              COLON,
+              QUESTION_MARK,
+              RIGHT_OPEN_PAREN
+            )
+          ),
+          group(set(CHINESE_CHARS))
+        ),
         "$1 $2",
       ],
       [
