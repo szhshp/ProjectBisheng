@@ -38,6 +38,7 @@ import {
 } from "./regexUtils";
 
 const DEBUG = 0;
+const DEBUG_SINGLE_SCHEMA: string = "boldTextBlock";
 
 /**
  * @name replacePunctuations
@@ -84,24 +85,13 @@ export const biShengFormat = (
     boldTextBlock: [
       [
         compose(
-          group(set(not(CHINESE_CHARS, ALPHABETICAL_AND_NUM))),
-          zeroOrMany(WHITE_SPACE),
+          zeroOrMany(set(SPACE_CHAR, "\\f\\r\\t\\v")),
           group(STAR, STAR, zeroOrMany(set(not(STAR))), STAR, STAR),
-          zeroOrMany(WHITE_SPACE),
-          group(zeroOrOne(NOT_WHITE_SPACE))
+          zeroOrMany(set(SPACE_CHAR, "\\f\\r\\t\\v"))
         ),
-        "$1 $2$3",
+        "$1",
       ],
-      [
-        compose(
-          group(set(CHINESE_CHARS, ALPHABETICAL_AND_NUM)),
-          zeroOrMany(WHITE_SPACE),
-          group(STAR, STAR, zeroOrMany(set(not(STAR))), STAR, STAR),
-          zeroOrMany(WHITE_SPACE),
-          group(zeroOrOne(NOT_WHITE_SPACE))
-        ),
-        "$1$2$3",
-      ],
+      ["\\-\\*\\*", "- **"],
     ],
 
     blankLines: [
@@ -172,21 +162,21 @@ export const biShengFormat = (
     ],
   };
 
-  Object.keys(replaceSchema).forEach((key) => {
-    if (DEBUG) {
-      console.log("--------------FORMAT--------------");
-      console.log(key);
-    }
-    replaceSchema[key].forEach(([regexStr, replace, flags]) => {
-      if (mainFeature[key] === true) {
+  Object.keys(replaceSchema).forEach((schema) => {
+    replaceSchema[schema].forEach(([regexStr, replace, flags]) => {
+      if (mainFeature[schema] === true) {
         const regex = new RegExp(regexStr, flags || "g");
         content = content.replace(regex, replace);
+
+        if (
+          DEBUG &&
+          (schema === DEBUG_SINGLE_SCHEMA || DEBUG_SINGLE_SCHEMA === "")
+        ) {
+          console.log(regex);
+          console.log(content);
+        }
       }
     });
-    if (DEBUG) {
-      console.log("--------------AFTER--------------");
-      console.log(content);
-    }
   });
 
   return content;
