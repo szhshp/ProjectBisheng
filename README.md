@@ -57,9 +57,15 @@
     - [ ] Format On Save
   - [x] 配置选项
   - [x] Format Selected
+  - [ ] Mac 兼容性测试
 - [x] 网页端实现
   - [ ] ~~Format On Save~~
   - [ ] 配置选项
-- [ ] Mac 兼容性测试
+- [ ] Chrome 插件
 
 
+## 鸣谢
+
+- [doctor-jones](https://github.com/Leopoldthecoder/doctor-jones)
+- [pangu-markdown](https://github.com/xlthu/pangu-markdown)
+- [awesome-chrome-extension-boilerplate](https://github.com/tjx666/awesome-chrome-extension-boilerplate)
