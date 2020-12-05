@@ -2322,6 +2322,11 @@ bindings@^1.5.0:
   dependencies:
     file-uri-to-path "1.0.0"
 
+bisheng-formatter-core@>0.2.10:
+  version "0.2.10"
+  resolved "https://registry.npmjs.org/bisheng-formatter-core/-/bisheng-formatter-core-0.2.10.tgz#00670f30aefface3c21cbc7db1b5316a727045a1"
+  integrity sha512-cyky+3A/sE7n3oxzfJxYQ5TmKcZkBicib5QhRia6a6Cwv49588s7WUEIJ444ZSJzU7UM2KcZJM+08KlnwAm6cQ==
+
 block-stream@*:
   version "0.0.9"
   resolved "https://registry.npm.taobao.org/block-stream/download/block-stream-0.0.9.tgz#13ebfe778a03205cfe03751481ebb4b3300c126a"

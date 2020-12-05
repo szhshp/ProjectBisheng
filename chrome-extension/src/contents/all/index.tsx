@@ -1,5 +1,5 @@
 import { bishengFormat } from 'bisheng-formatter-core';
-import MESSAGE from '../../constants/MessageTypes';
+import MESSAGE from '../../constants/messageTypes';
 import './style.scss';
 
 const DEBUG = {
@@ -64,7 +64,7 @@ const formatNode = (node: ChildNode) => {
 
 const formatNodes = () => {
   getAllTextNodes([document.documentElement]);
-  
+
   textNodes.forEach((e) => formatNode(e));
 };
 
