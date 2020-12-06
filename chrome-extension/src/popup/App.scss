@@ -1,7 +1,13 @@
 @import '~styles/reset.scss';
 
 .app {
-  width: 300px;
+  width: 360px;
+  .divider {
+    &::before, &::after {
+      border-top: 1px solid #80808080;
+    }
+  }
+
   .header,
   .footer {
     padding: 0.5rem;

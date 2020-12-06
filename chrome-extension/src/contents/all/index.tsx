@@ -1,10 +1,11 @@
 import { bishengFormat } from 'bisheng-formatter-core';
+import { debounce } from 'lodash';
 import MESSAGE from '../../constants/messageTypes';
 import './style.scss';
 
 const DEBUG = {
-  ACTIVE: false,
-  KEYWORD: '加密',
+  ACTIVE: true,
+  KEYWORD: '',
 };
 
 const textNodes: ChildNode[] = [];
@@ -34,6 +35,25 @@ const getAllTextNodes = (nodes: HTMLElement[] | ChildNode[]) => {
   });
 };
 
+export const autoFormat = () => {
+  const debouncedFormat = debounce(formatNodes, 100);
+
+  const mutationHandler: MutationCallback = (mutationList) => {
+    mutationList.forEach(() => {
+      debouncedFormat();
+    });
+  };
+
+  const observerOptions = {
+    childList: true,
+    subtree: true,
+  };
+
+  const observer = new MutationObserver(mutationHandler);
+  observer.observe(document.body, observerOptions);
+  debouncedFormat();
+};
+
 const formatNode = (node: ChildNode) => {
   if (node.hasChildNodes()) return;
   const _node = node;
@@ -53,7 +73,7 @@ const formatNode = (node: ChildNode) => {
 
   if (textAttribute && _node[textAttribute]) {
     const textValue = _node[textAttribute] || '';
-    if (DEBUG.ACTIVE === false || (DEBUG.ACTIVE === true && textValue.includes(DEBUG.KEYWORD))) {
+    if (DEBUG.KEYWORD === '' || textValue.includes(DEBUG.KEYWORD)) {
       formattedText = bishengFormat(textValue);
       if (textValue !== formattedText) {
         _node[textAttribute] = formattedText;
@@ -66,6 +86,7 @@ const formatNodes = () => {
   getAllTextNodes([document.documentElement]);
 
   textNodes.forEach((e) => formatNode(e));
+  if (DEBUG.ACTIVE) console.log('Fromated', textNodes.length);
 };
 
 chrome.runtime.onMessage.addListener((request, sender) => {
@@ -73,7 +94,6 @@ chrome.runtime.onMessage.addListener((request, sender) => {
   if (chrome.runtime.id !== sender.id) {
     return;
   }
-
   switch (request.type) {
     case MESSAGE.FORMAT:
       break;
