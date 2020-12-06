@@ -7,6 +7,8 @@ import MESSAGE from '../constants/messageTypes';
 import Tooltip from 'antd/lib/tooltip';
 import settings from '../constants/config';
 import SETUP from '../constants/setup';
+import { Button } from 'antd';
+import { getStorage, resetConfig, saveToStorage } from '../utils/configManager';
 // import { autoFormat } from '../contents/all';
 
 const { Footer, Content } = Layout;
@@ -31,12 +33,12 @@ const App = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       setActiveTab(tabs[0]);
     });
-    init();
+    initConfig();
   }, []);
 
-  const init = () => {
-    chrome.storage.sync.get(SETUP.STORAGE_KEY, (res) => {
-      /* TODO: Fix Eslint Gap: I cannot use optional operator here ! */
+  const initConfig = () => {
+    getStorage(SETUP.STORAGE_KEY, (res) => {
+      /* TODO: Fix Eslint Gap: 我去居然没法用 Optional Operator */
       const _config =
         res && res[SETUP.STORAGE_KEY] && Object.keys(res[SETUP.STORAGE_KEY]).length > 0
           ? res[SETUP.STORAGE_KEY]
@@ -45,17 +47,12 @@ const App = () => {
     });
   };
 
-  const saveConfigToStorage = (_storage: { [key: string]: any }) => {
-    chrome.storage.sync.set(_storage);
-  };
-
-  const formatButtonOnClick = () => {
+  const formatDocument = () => {
     if (activeTab?.id) {
       chrome.tabs.sendMessage(activeTab.id, {
         type: MESSAGE.FORMAT,
       });
     }
-    chrome.storage.sync.clear();
   };
 
   const configOnChange = ({ key, value }: { key: string; value: any }) => {
@@ -64,7 +61,7 @@ const App = () => {
     const _storage: { [key: string]: any } = {};
     _storage[SETUP.STORAGE_KEY] = _config;
     setConfig(_config);
-    saveConfigToStorage(_storage);
+    saveToStorage(_storage);
   };
 
   return (
@@ -116,9 +113,22 @@ const App = () => {
             </>
           );
         })}
-        <button onClick={formatButtonOnClick} type="button">
-          Format
-        </button>
+        <Row>
+          <Col>
+            {[
+              {
+                title: '手动激活',
+                onClick: formatDocument,
+              },
+              {
+                title: '恢复默认',
+                onClick: resetConfig,
+              },
+            ].map((btn) => (
+              <Button onClick={btn.onClick}>{btn.title}</Button>
+            ))}
+          </Col>
+        </Row>
       </Content>
       <Footer className="footer">
         <Col span={12}>
