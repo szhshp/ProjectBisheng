@@ -140,7 +140,7 @@ const App = () => {
         <Row>
           {links.map((e) => (
             <Col flex="1">
-              <a href={e.link}>{e.title}</a>
+              <a href={e.link} target="_blank">{e.title}</a>
             </Col>
           ))}
         </Row>

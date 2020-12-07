@@ -39,7 +39,7 @@ const getAllTextNodes = (nodes: HTMLElement[] | ChildNode[]) => {
 };
 
 export const activeAutoFormat = (config: { [key: string]: string | boolean }) => {
-  const debouncedFormat = debounce(formatNodes, 100);
+  const debouncedFormat = debounce(formatNodes, 1000);
   const mutationHandler: MutationCallback = (mutationList) => {
     mutationList.forEach(() => {
       debouncedFormat(config);

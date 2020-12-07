@@ -39,17 +39,20 @@
 
 - [x] Readme
 - [x] Git Ignore /dist
+- [ ] Logo
+- [ ] Option Page
 - [x] Core
   - [x] 繁体支持
   - [x] 符号与英文之间添加空格 (可选)
-  - [ ] Export Config Interface
+  - [ ] 暴露 BishengConfig 接口
+  - [ ] 支持英文符号替换后添加更多空格
 - [x] NPM
   - [x] NPM 发布忽略 src 文件夹
 - [ ] VSC Extension
   - [x] 发布到 VSC Market
   - [x] Ext Icon
   - [x] 快捷键
-    - [ ] Format on save
+    - [ ] ~~Format on save~~
   - [x] 配置选项
   - [x] Format Selected
   - [ ] Mac 兼容性测试
@@ -57,8 +60,8 @@
   - [ ] ~~Format on save~~
   - [ ] 配置选项
 - [ ] Chrome 插件
-  - [ ] Format on tab open
-  - [ ] 配置选项
+  - [x] Format on tab open
+  - [x] 配置选项
 
 ## 鸣谢
 

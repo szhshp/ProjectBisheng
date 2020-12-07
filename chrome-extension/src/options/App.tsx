@@ -3,6 +3,7 @@ import React from 'react';
 
 import './App.scss';
 
+// TODO: Do we need options page?
 const App = () => {
   return (
     <div className="app">

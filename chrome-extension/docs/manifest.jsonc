@@ -63,11 +63,11 @@
         "keyword": "aString"
     },
     "optional_permissions": ["tabs"],
-    "options_page": "options.html",
-    "options_ui": {
-        "chrome_style": true,
-        "page": "options.html"
-    },
+    // "options_page": "options.html",
+    // "options_ui": {
+    //     "chrome_style": true,
+    //     "page": "options.html"
+    // },
     "permissions": ["tabs"],
     "platforms": "",
     "replacement_web_app": "",

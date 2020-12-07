@@ -87,13 +87,13 @@ const commonConfig: Configuration = {
       color: '#0f9d58',
     }),
     new FriendlyErrorsPlugin(),
-    new HtmlWebpackPlugin({
+    /* new HtmlWebpackPlugin({
       minify: __DEV__ ? false : htmlMinifyOptions,
       chunks: ['options'],
       filename: 'options.html',
       title: 'options page',
       template: resolve(PROJECT_ROOT, 'public/options.html'),
-    }),
+    }), */
     new HtmlWebpackPlugin({
       minify: __DEV__ ? false : htmlMinifyOptions,
       chunks: ['popup'],
