@@ -3,7 +3,8 @@
 .app {
   width: 360px;
   .divider {
-    &::before, &::after {
+    &::before,
+    &::after {
       border-top: 1px solid #80808080;
     }
   }
@@ -16,6 +17,10 @@
     * {
       color: #e6f7ff;
     }
+  }
+
+  .text-center {
+    text-align: center;
   }
 
   .ant-col {

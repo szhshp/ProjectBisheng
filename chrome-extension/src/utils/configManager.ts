@@ -2,7 +2,7 @@ export const saveToStorage = (_storage: { [key: string]: any }) => {
   chrome.storage.sync.set(_storage);
 };
 
-export const resetConfig = () => chrome.storage.sync.clear();
+export const resetStorage = () => chrome.storage.sync.clear();
 
 export const getStorage = (
   keys: string | Object | string[] | null,

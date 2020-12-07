@@ -1,6 +1,9 @@
 import { bishengFormat } from 'bisheng-formatter-core';
 import { debounce } from 'lodash';
+import { defaultConfig } from '../../constants/config';
 import MESSAGE from '../../constants/messageTypes';
+import SETUP from '../../constants/setup';
+import { getStorage } from '../../utils/configManager';
 import './style.scss';
 
 const DEBUG = {
@@ -35,12 +38,11 @@ const getAllTextNodes = (nodes: HTMLElement[] | ChildNode[]) => {
   });
 };
 
-export const autoFormat = () => {
+export const activeAutoFormat = (config: { [key: string]: string | boolean }) => {
   const debouncedFormat = debounce(formatNodes, 100);
-
   const mutationHandler: MutationCallback = (mutationList) => {
     mutationList.forEach(() => {
-      debouncedFormat();
+      debouncedFormat(config);
     });
   };
 
@@ -51,10 +53,10 @@ export const autoFormat = () => {
 
   const observer = new MutationObserver(mutationHandler);
   observer.observe(document.body, observerOptions);
-  debouncedFormat();
+  debouncedFormat(config);
 };
 
-const formatNode = (node: ChildNode) => {
+const formatNode = (node: ChildNode, config: { [key: string]: string | boolean }) => {
   if (node.hasChildNodes()) return;
   const _node = node;
   let formattedText;
@@ -74,7 +76,19 @@ const formatNode = (node: ChildNode) => {
   if (textAttribute && _node[textAttribute]) {
     const textValue = _node[textAttribute] || '';
     if (DEBUG.KEYWORD === '' || textValue.includes(DEBUG.KEYWORD)) {
-      formattedText = bishengFormat(textValue);
+      const bishengConfig = {
+        mainFeature: {
+          markdownLinksInFullWidth: false,
+          boldTextBlock: false,
+          blankLines: false,
+          duplicatedPunctuations: config['duplicatedPunctuations'] === true,
+          fullWidthCharsAndFollowingSpaces: config['fullWidthCharsAndFollowingSpaces'] === true,
+          addSpacesBetweenChineseCharAndAlphabeticalChar:
+            config['addSpacesBetweenChineseCharAndAlphabeticalChar'] === true,
+          halfWidthCharsAndFollowingSpaces: config['halfWidthCharsAndFollowingSpaces'] === true,
+        },
+      };
+      formattedText = bishengFormat(textValue, bishengConfig);
       if (textValue !== formattedText) {
         _node[textAttribute] = formattedText;
       }
@@ -82,20 +96,29 @@ const formatNode = (node: ChildNode) => {
   }
 };
 
-const formatNodes = () => {
+const formatNodes = (config: { [key: string]: string | boolean }) => {
   getAllTextNodes([document.documentElement]);
 
-  textNodes.forEach((e) => formatNode(e));
+  textNodes.forEach((e) => formatNode(e, config));
   if (DEBUG.ACTIVE) console.log('Fromated', textNodes.length);
 };
 
+getStorage(SETUP.STORAGE_KEY, (res) => {
+  /* TODO: 😅 居然没法用 Optional Operator, Eslint 少了规则 */
+  const config =
+    res && res[SETUP.STORAGE_KEY] && Object.keys(res[SETUP.STORAGE_KEY]).length > 0
+      ? res[SETUP.STORAGE_KEY]
+      : defaultConfig;
+  if (config.autoFormat) activeAutoFormat(config);
+});
+
 chrome.runtime.onMessage.addListener((request, sender) => {
-  formatNodes();
   if (chrome.runtime.id !== sender.id) {
     return;
   }
   switch (request.type) {
     case MESSAGE.FORMAT:
+      formatNodes(request.config);
       break;
 
     case 'revoke':
@@ -103,8 +126,8 @@ chrome.runtime.onMessage.addListener((request, sender) => {
       // manualRevoked = true;
       break;
 
-    case 'startAutoFormat':
-      // autoFormat();
+    case MESSAGE.ACTIVE_AUTOFORMAT:
+      activeAutoFormat(request.config);
       break;
 
     case 'stopAutoFormat':

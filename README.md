@@ -42,20 +42,23 @@
 - [x] Core
   - [x] 繁体支持
   - [x] 符号与英文之间添加空格 (可选)
+  - [ ] Export Config Interface
 - [x] NPM
   - [x] NPM 发布忽略 src 文件夹
 - [ ] VSC Extension
   - [x] 发布到 VSC Market
   - [x] Ext Icon
   - [x] 快捷键
-    - [ ] Format On Save
+    - [ ] Format on save
   - [x] 配置选项
   - [x] Format Selected
   - [ ] Mac 兼容性测试
 - [x] 网页端实现
-  - [ ] ~~Format On Save~~
+  - [ ] ~~Format on save~~
   - [ ] 配置选项
 - [ ] Chrome 插件
+  - [ ] Format on tab open
+  - [ ] 配置选项
 
 ## 鸣谢
 

@@ -3,12 +3,28 @@ export type SettingItemType = {
   desc: string;
   tooltip?: string[];
 }[];
+
 export type SettingType = {
   name: string;
   items: SettingItemType;
 };
+
+export type LinkType = {
+  title: string;
+  link: string;
+};
+
 export type SettingsType = {
   [index: string]: SettingType;
+};
+
+export const defaultConfig = {
+  duplicatedPunctuations: true,
+  fullWidthCharsAndFollowingSpaces: true,
+  halfWidthCharsAndFollowingSpaces: true,
+  addSpacesBetweenChineseCharAndAlphabeticalChar: true,
+  autoFormat: false,
+  useSimpleQuotation: true,
 };
 
 const settings: SettingsType = {
@@ -42,7 +58,8 @@ const settings: SettingsType = {
         desc: '格式化半角符号/数字/英文字符',
         tooltip: [
           'Before:',
-          '这一幕被一楼 DHBM 系统监控到,30 秒内关闭了系统.', '',
+          '这一幕被一楼 DHBM 系统监控到,30 秒内关闭了系统.',
+          '',
           'After:',
           ' 这一幕被一楼 DHBM 系统监控到, 30 秒内关闭了系统.',
         ],
@@ -59,6 +76,7 @@ const settings: SettingsType = {
       {
         key: 'autoFormat',
         desc: '对所有页面自动格式化',
+        tooltip: ['对所有新打开的页面格式化'],
       },
       {
         key: 'useSimpleQuotation',
@@ -72,5 +90,16 @@ const settings: SettingsType = {
     ],
   },
 };
+
+export const links: LinkType[] = [
+  {
+    title: 'Github',
+    link: 'https://github.com/szhielelp/ProjectBisheng',
+  },
+  {
+    title: 'Blog',
+    link: 'https://szhshp.org',
+  },
+];
 
 export default settings;

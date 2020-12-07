@@ -5,40 +5,28 @@ import './App.scss';
 import { Col, Divider, Layout, Row, Switch, Typography } from 'antd';
 import MESSAGE from '../constants/messageTypes';
 import Tooltip from 'antd/lib/tooltip';
-import settings from '../constants/config';
+import settings, { defaultConfig, links } from '../constants/config';
 import SETUP from '../constants/setup';
 import { Button } from 'antd';
-import { getStorage, resetConfig, saveToStorage } from '../utils/configManager';
-// import { autoFormat } from '../contents/all';
+import { getStorage, resetStorage, saveToStorage } from '../utils/configManager';
+import { getActiveTab } from '../utils/tabManager';
 
 const { Footer, Content } = Layout;
 const { Title, Text } = Typography;
 
-const defaultConfig = {
-  duplicatedPunctuations: true,
-  fullWidthCharsAndFollowingSpaces: true,
-  halfWidthCharsAndFollowingSpaces: true,
-  addSpacesBetweenChineseCharAndAlphabeticalChar: true,
-  autoFormat: false,
-  useSimpleQuotation: true,
-};
-
 const App = () => {
-  const [activeTab, setActiveTab] = useState<chrome.tabs.Tab>();
   const [config, setConfig] = useState<{
     [key: string]: boolean;
   }>();
+  const [notification, setNotification] = useState('');
 
   useEffect(() => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      setActiveTab(tabs[0]);
-    });
-    initConfig();
+    loadConfig();
   }, []);
 
-  const initConfig = () => {
+  const loadConfig = () => {
     getStorage(SETUP.STORAGE_KEY, (res) => {
-      /* TODO: Fix Eslint Gap: 我去居然没法用 Optional Operator */
+      /* TODO: 😅 居然没法用 Optional Operator, Eslint 少了规则 */
       const _config =
         res && res[SETUP.STORAGE_KEY] && Object.keys(res[SETUP.STORAGE_KEY]).length > 0
           ? res[SETUP.STORAGE_KEY]
@@ -47,21 +35,32 @@ const App = () => {
     });
   };
 
-  const formatDocument = () => {
-    if (activeTab?.id) {
+  const resetConfig = () => {
+    resetStorage();
+    setConfig(defaultConfig);
+    setNotification('请刷新页面以新配置格式化');
+  };
+
+  const formatDocument = async () => {
+    const activeTab = await getActiveTab();
+
+    activeTab?.id &&
       chrome.tabs.sendMessage(activeTab.id, {
         type: MESSAGE.FORMAT,
+        config,
       });
-    }
   };
 
   const configOnChange = ({ key, value }: { key: string; value: any }) => {
     const _config = { ...config };
     _config[key] = value;
+    setConfig(_config);
+
     const _storage: { [key: string]: any } = {};
     _storage[SETUP.STORAGE_KEY] = _config;
-    setConfig(_config);
     saveToStorage(_storage);
+
+    setNotification('请刷新页面以新配置格式化');
   };
 
   return (
@@ -113,27 +112,38 @@ const App = () => {
             </>
           );
         })}
-        <Row>
-          <Col>
-            {[
-              {
-                title: '手动激活',
-                onClick: formatDocument,
-              },
-              {
-                title: '恢复默认',
-                onClick: resetConfig,
-              },
-            ].map((btn) => (
+        <Row className="text-center">
+          {[
+            {
+              title: '手动激活',
+              onClick: formatDocument,
+            },
+            {
+              title: '恢复默认',
+              onClick: resetConfig,
+            },
+          ].map((btn) => (
+            <Col flex="1">
               <Button onClick={btn.onClick}>{btn.title}</Button>
-            ))}
-          </Col>
+            </Col>
+          ))}
+        </Row>
+        <Row>
+          {notification.length > 0 && (
+            <Col>
+              <Text type="danger">{notification}</Text>
+            </Col>
+          )}
         </Row>
       </Content>
       <Footer className="footer">
-        <Col span={12}>
-          <Text strong>Github</Text>
-        </Col>
+        <Row>
+          {links.map((e) => (
+            <Col flex="1">
+              <a href={e.link}>{e.title}</a>
+            </Col>
+          ))}
+        </Row>
       </Footer>
     </Layout>
   );
