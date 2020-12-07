@@ -1,5 +1,11 @@
 # Project Bisheng - Chrome Extension
 
+## Installation
+
+`yarn`
+
+> 不要使用 npm
+
 ## TODO
 
 - [x] 核心功能
