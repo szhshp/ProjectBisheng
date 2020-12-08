@@ -11,6 +11,8 @@ const DEBUG = {
   KEYWORD: '',
 };
 
+// const keywords = ['新闻', '使用', '规则', '帮助'];
+
 const textNodes: ChildNode[] = [];
 
 const getAllTextNodes = (nodes: HTMLElement[] | ChildNode[]) => {
@@ -59,7 +61,7 @@ export const activeAutoFormat = (config: { [key: string]: string | boolean }) =>
 const formatNode = (node: ChildNode, config: { [key: string]: string | boolean }) => {
   if (node.hasChildNodes()) return;
   const _node = node;
-  let formattedText;
+  let formattedText = '';
   let textAttribute: 'textContent' | 'nodeValue' | undefined;
 
   switch (_node.nodeType) {
@@ -76,6 +78,7 @@ const formatNode = (node: ChildNode, config: { [key: string]: string | boolean }
   if (textAttribute && _node[textAttribute]) {
     const textValue = _node[textAttribute] || '';
     if (DEBUG.KEYWORD === '' || textValue.includes(DEBUG.KEYWORD)) {
+      /* Format with Bisheng */
       const bishengConfig = {
         mainFeature: {
           markdownLinksInFullWidth: false,
@@ -89,6 +92,16 @@ const formatNode = (node: ChildNode, config: { [key: string]: string | boolean }
         },
       };
       formattedText = bishengFormat(textValue, bishengConfig);
+
+      /* Clear keywords */
+      // keywords.forEach((keyword) => {
+      //   if (formattedText.includes(keyword)) {
+      //     debugger;
+      //     const regExp = new RegExp(keyword, 'g');
+      //     formattedText = formattedText.replace(regExp, Array(keyword.length).fill('█').join(''));
+      //   }
+      // });
+
       if (textValue !== formattedText) {
         _node[textAttribute] = formattedText;
       }
@@ -120,23 +133,9 @@ chrome.runtime.onMessage.addListener((request, sender) => {
     case MESSAGE.FORMAT:
       formatNodes(request.config);
       break;
-
-    case 'revoke':
-      // revoke();
-      // manualRevoked = true;
-      break;
-
     case MESSAGE.ACTIVE_AUTOFORMAT:
       activeAutoFormat(request.config);
       break;
-
-    case 'stopAutoFormat':
-      // if (observer) {
-      //   observer.disconnect();
-      // }
-      // revoke();
-      break;
-
     default:
       break;
   }
