@@ -11,15 +11,13 @@ const DEBUG = {
   KEYWORD: '',
 };
 
-// const keywords = ['新闻', '使用', '规则', '帮助'];
-
 const textNodes: ChildNode[] = [];
 
 const getAllTextNodes = (nodes: HTMLElement[] | ChildNode[]) => {
   nodes.forEach((node) => {
     if (node instanceof HTMLElement) {
       if (
-        ['SCRIPT', 'STYLE', 'TEXTAREA', 'META', 'LINK', 'HEAD', 'SVG', 'PATH'].includes(
+        ['SCRIPT', 'STYLE', 'TEXTAREA', 'PRE', 'META', 'LINK', 'HEAD', 'SVG', 'PATH'].includes(
           (node.tagName || '').toUpperCase(),
         )
       ) {
@@ -93,14 +91,14 @@ const formatNode = (node: ChildNode, config: { [key: string]: string | boolean }
       };
       formattedText = bishengFormat(textValue, bishengConfig);
 
-      /* Clear keywords */
-      // keywords.forEach((keyword) => {
-      //   if (formattedText.includes(keyword)) {
-      //     debugger;
-      //     const regExp = new RegExp(keyword, 'g');
-      //     formattedText = formattedText.replace(regExp, Array(keyword.length).fill('█').join(''));
-      //   }
-      // });
+      /* Experimental Feature */
+      if (
+        config['keywordReplaceByChar'] === true &&
+        (config['keywordRegex'] as string).length > 0
+      ) {
+        const regExp = new RegExp(config['keywordRegex'] as string, 'g');
+        formattedText = formattedText.replace(regExp, Array(5).fill('█').join(''));
+      }
 
       if (textValue !== formattedText) {
         _node[textAttribute] = formattedText;

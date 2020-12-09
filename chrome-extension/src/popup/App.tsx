@@ -5,7 +5,7 @@ import './App.scss';
 import { Col, Divider, Layout, Row, Switch, Typography } from 'antd';
 import MESSAGE from '../constants/messageTypes';
 import Tooltip from 'antd/lib/tooltip';
-import settings, { defaultConfig, links } from '../constants/config';
+import settings, { ConfigItemType, defaultConfig, links } from '../constants/config';
 import SETUP from '../constants/setup';
 import { Button } from 'antd';
 import { getStorage, resetStorage, saveToStorage } from '../utils/configManager';
@@ -73,7 +73,7 @@ const App = () => {
         </Col>
       </Row>
       <Content>
-        {['feature', 'config'].map((configKey) => {
+        {['features', 'settings', 'experimental'].map((configKey) => {
           return (
             <>
               <Divider className="divider">{settings[configKey].name}</Divider>
@@ -81,7 +81,10 @@ const App = () => {
                 return (
                   <Row key={e.key}>
                     <Col span={18}>
-                      <Text strong>{e.desc}</Text>
+                      <Text strong>
+                        {e.desc}
+                        {'  '}
+                      </Text>
                       {e.tooltip && (
                         <Text strong>
                           <Tooltip
@@ -98,13 +101,17 @@ const App = () => {
                       )}
                     </Col>
                     <Col span={6}>
-                      <Switch
-                        checked={config && config[e.key]}
-                        defaultChecked
-                        onClick={(checked: boolean) => {
-                          configOnChange({ key: e.key, value: checked });
-                        }}
-                      />
+                      {e.type === ConfigItemType.Switch ? (
+                        <Switch
+                          checked={config && config[e.key]}
+                          defaultChecked
+                          onClick={(checked: boolean) => {
+                            configOnChange({ key: e.key, value: checked });
+                          }}
+                        />
+                      ) : (
+                        <div>{config && config[e.key]}</div>
+                      )}
                     </Col>
                   </Row>
                 );
@@ -140,7 +147,9 @@ const App = () => {
         <Row>
           {links.map((e) => (
             <Col flex="1">
-              <a href={e.link} target="_blank">{e.title}</a>
+              <a href={e.link} target="_blank">
+                {e.title}
+              </a>
             </Col>
           ))}
         </Row>
