@@ -2,7 +2,7 @@ import { hot } from 'react-hot-loader/root';
 import React, { useEffect, useRef, useState } from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import './App.scss';
-import { Col, Collapse, Form, Input, Layout, Row, Switch, Typography } from 'antd';
+import { Col, Collapse, Input, Layout, Row, Switch, Typography } from 'antd';
 import MESSAGE from '../constants/messageTypes';
 import Tooltip from 'antd/lib/tooltip';
 import configurations, {
