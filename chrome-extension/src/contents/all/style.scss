@@ -1,4 +1,29 @@
 // the style will be applied to all pages
-.js-header-wrapper > header {
-  // background-color: lightblue;
+$hide-bg: #8c8c8c;
+$hide-font-color: white;
+
+.bisheng_hide {
+  color: $hide-bg !important;
+  background: $hide-bg !important;
+
+  & > * {
+    color: $hide-bg !important;
+    background: $hide-bg !important;
+  }
+
+  &:hover {
+    color: $hide-font-color !important;
+    /* &:before {
+      content: '';
+    } */
+    & > * {
+      color: $hide-font-color !important;
+    }
+  }
+
+  /* &:before {
+    // content: '(Hover 以查看内容)';
+    font-size: 14px !important;
+    color: #565353;
+  } */
 }

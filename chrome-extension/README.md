@@ -15,12 +15,12 @@
 ## TODO
 
 - [x] 核心功能
-- [ ] Configuration
-  - [ ] Sync Config
-  - [ ] Optional `font-family` 
-- [ ] Activate on load
+- [x] Configuration
+  - [x] Sync Config
+  - [x] Optional `font-family` 
+- [x] Activate on load
 - [ ] Whitelist & Black List
-- [ ] ReadMe
+- [x] ReadMe
 - [ ] Release
   - [ ] Build Alpha
-  - [ ] Release Script
+  - [ ] Release to Google

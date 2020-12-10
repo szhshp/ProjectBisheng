@@ -113,21 +113,21 @@ const configuration: AllConfigType = {
     name: '实验性功能',
     items: [
       {
-        key: 'keywordReplaceByChar',
-        desc: '主开关 隐藏关键字',
-        tooltip: ['全网站可搜索的文本中，含有设置的关键字的文本将会被遮挡'],
-        type: ConfigItemType.Switch,
+        key: 'keywordRegex',
+        desc: '关键字 (支持正则表达式)',
+        type: ConfigItemType.TextBox,
       },
       {
         key: 'keywordReplaceByElem',
         desc: '隐藏含有关键字的元素',
-        tooltip: ['全网站可搜索的文本中，含有设置的关键字的整个元素将会被遮挡'],
+        tooltip: ['全网站可检索的文本中，含有关键字的整个元素将会被隐藏'],
         type: ConfigItemType.Switch,
       },
       {
-        key: 'keywordRegex',
-        desc: '关键字 (支持正则表达式)',
-        type: ConfigItemType.TextBox,
+        key: 'keywordReplaceByChar',
+        desc: '替换关键字',
+        tooltip: ['全网站可检索的文本中，含有关键字的文本将会被自动替换'],
+        type: ConfigItemType.Switch,
       },
       {
         key: 'keywordRegexToReplace',

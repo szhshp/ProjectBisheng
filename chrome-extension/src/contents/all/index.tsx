@@ -91,14 +91,30 @@ const formatNode = (node: ChildNode, config: { [key: string]: string | boolean }
       };
       formattedText = bishengFormat(textValue, bishengConfig);
 
+      const keywordRegex = config['keywordRegex'] as string;
+      const keywordRegexToReplace = config['keywordRegexToReplace'] as string;
+
       /* Experimental Feature */
-      if (
-        config['keywordReplaceByChar'] === true &&
-        (config['keywordRegex'] as string).length > 0 &&
-        (config['keywordRegexToReplace'] as string).length > 0
-      ) {
+      if (keywordRegex.length > 0) {
         const regExp = new RegExp(config['keywordRegex'] as string, 'g');
-        formattedText = formattedText.replace(regExp, config['keywordRegexToReplace'] as string);
+
+        const matched = formattedText.match(regExp);
+        if (matched !== null) {
+          if (config['keywordReplaceByElem'] === true) {
+            /* Hide parent elem */
+            _node.parentElement?.classList.add('bisheng_hide');
+          }
+
+          if (config['keywordReplaceByChar'] === true) {
+            /* Replace keywords */
+            formattedText = formattedText.replace(
+              regExp,
+              keywordRegexToReplace.length > 0
+                ? keywordRegexToReplace
+                : Array(matched[0].length).fill('█').join(''),
+            );
+          }
+        }
       }
 
       if (textValue !== formattedText) {
@@ -117,7 +133,6 @@ const formatNodes = (config: { [key: string]: string | boolean }) => {
 };
 
 getStorage(SETUP.STORAGE_KEY, (res) => {
-  /* TODO: 😅 居然没法用 Optional Operator, Eslint 少了规则 */
   const config =
     res && res[SETUP.STORAGE_KEY] && Object.keys(res[SETUP.STORAGE_KEY]).length > 0
       ? res[SETUP.STORAGE_KEY]

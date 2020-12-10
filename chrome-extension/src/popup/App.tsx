@@ -2,7 +2,7 @@ import { hot } from 'react-hot-loader/root';
 import React, { useEffect, useRef, useState } from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import './App.scss';
-import { Col, Collapse, Input, Layout, Row, Switch, Typography } from 'antd';
+import { Col, Collapse, Input, Layout, Row, Space, Switch, Typography } from 'antd';
 import MESSAGE from '../constants/messageTypes';
 import Tooltip from 'antd/lib/tooltip';
 import configurations, {
@@ -43,6 +43,12 @@ const App = () => {
     });
   }, []);
 
+  const demo = () => {
+    saveConfig();
+    const keywordRegex = config && config['keywordRegex'] ? config['keywordRegex'] : 'szhshp.org';
+    window.open(`https://www.baidu.com/s?wd=${keywordRegex}`);
+  };
+
   const resetConfig = () => {
     resetStorage();
     setConfig(defaultConfig);
@@ -50,6 +56,7 @@ const App = () => {
   };
 
   const formatDocument = async () => {
+    saveConfig();
     const activeTab = await getActiveTab();
 
     activeTab?.id &&
@@ -60,7 +67,6 @@ const App = () => {
   };
 
   const changeConfig = ({ key, value }: { key: string; value: any }) => {
-    debugger;
     const _config = { ...config };
     _config[key] = value;
     setConfig(_config);
@@ -150,26 +156,32 @@ const App = () => {
         </Collapse>
       </Content>
       <Content>
-        {/* Buttons */}
-        <Row className="text-center">
-          {[
-            {
-              title: '保存',
-              onClick: saveConfig,
-            },
-            {
-              title: '手动激活',
-              onClick: formatDocument,
-            },
-            {
-              title: '恢复默认',
-              onClick: resetConfig,
-            },
-          ].map((btn) => (
-            <Col flex="1">
-              <Button onClick={btn.onClick}>{btn.title}</Button>
-            </Col>
-          ))}
+        <Row>
+          <Col span={24}>
+            <Space direction="horizontal">
+              {/* Buttons */}
+              {[
+                {
+                  title: '测试',
+                  onClick: demo,
+                },
+                {
+                  title: '保存',
+                  onClick: saveConfig,
+                },
+                {
+                  title: '手动激活',
+                  onClick: formatDocument,
+                },
+                {
+                  title: '恢复默认',
+                  onClick: resetConfig,
+                },
+              ].map((btn) => (
+                <Button onClick={btn.onClick}>{btn.title}</Button>
+              ))}
+            </Space>
+          </Col>
         </Row>
         <Row justify="center">
           {notification.length > 0 && (
