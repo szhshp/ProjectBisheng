@@ -8,11 +8,13 @@ export type ConfigItem = {
   desc: string;
   tooltip?: string[];
   type: ConfigItemType;
-}[];
+};
+
+export type ConfigItems = ConfigItem[];
 
 export type ConfigType = {
   name: string;
-  items: ConfigItem;
+  items: ConfigItems;
 };
 
 export type LinkType = {
@@ -123,7 +125,7 @@ const configuration: AllConfigType = {
       },
       {
         key: 'keywordRegex',
-        desc: '关键字正则表达式',
+        desc: '关键字',
         type: ConfigItemType.TextBox,
       },
     ],

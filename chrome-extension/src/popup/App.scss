@@ -1,8 +1,19 @@
 @import '~styles/reset.scss';
 
+html {
+  max-height: 200px;
+}
+
 .app {
-  width: 360px;
+  width: 400px;
+  opacity: 0.3;
+
+  .ant-layout-content {
+    margin-bottom: 1rem;
+  }
+
   .divider {
+    margin: 0;
     &::before,
     &::after {
       border-top: 1px solid #80808080;
@@ -24,9 +35,7 @@
   }
 
   .ant-col {
-    padding-top: 0.2rem;
     padding-right: 1rem;
-    padding-bottom: 0.2rem;
     padding-left: 1rem;
   }
 }

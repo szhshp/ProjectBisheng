@@ -1,39 +1,47 @@
 import { hot } from 'react-hot-loader/root';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import './App.scss';
-import { Col, Divider, Layout, Row, Switch, Typography } from 'antd';
+import { Col, Collapse, Form, Input, Layout, Row, Switch, Typography } from 'antd';
 import MESSAGE from '../constants/messageTypes';
 import Tooltip from 'antd/lib/tooltip';
-import settings, { ConfigItemType, defaultConfig, links } from '../constants/config';
+import configurations, {
+  ConfigItem,
+  ConfigItemType,
+  defaultConfig,
+  links,
+} from '../constants/config';
 import SETUP from '../constants/setup';
 import { Button } from 'antd';
 import { getStorage, resetStorage, saveToStorage } from '../utils/configManager';
 import { getActiveTab } from '../utils/tabManager';
 
+const DEBUG = {
+  ACTIVE: true,
+};
+
 const { Footer, Content } = Layout;
+const { Panel } = Collapse;
 const { Title, Text } = Typography;
 
 const App = () => {
   const [config, setConfig] = useState<{
-    [key: string]: boolean;
+    [key: string]: any;
   }>();
   const [notification, setNotification] = useState('');
+  const inputEl = useRef<Input>(null);
 
+  if (DEBUG.ACTIVE) console.log('config: ', config);
   useEffect(() => {
-    loadConfig();
-  }, []);
-
-  const loadConfig = () => {
+    /* load saved config */
     getStorage(SETUP.STORAGE_KEY, (res) => {
-      /* TODO: 😅 居然没法用 Optional Operator, Eslint 少了规则 */
-      const _config =
+      const savedConfig =
         res && res[SETUP.STORAGE_KEY] && Object.keys(res[SETUP.STORAGE_KEY]).length > 0
           ? res[SETUP.STORAGE_KEY]
           : defaultConfig;
-      setConfig(_config);
+      setConfig(savedConfig);
     });
-  };
+  }, []);
 
   const resetConfig = () => {
     resetStorage();
@@ -55,13 +63,38 @@ const App = () => {
     const _config = { ...config };
     _config[key] = value;
     setConfig(_config);
+    if (DEBUG.ACTIVE) console.log('_config: ', _config);
 
     const _storage: { [key: string]: any } = {};
     _storage[SETUP.STORAGE_KEY] = _config;
     saveToStorage(_storage);
+    if (DEBUG.ACTIVE) console.log('_storage: ', _storage);
 
     setNotification('请刷新页面以新配置格式化');
   };
+
+  const ConfigItemCol = ({ item, width }: { item: ConfigItem; width: number }) => (
+    <Col span={width}>
+      <Text strong>
+        {item.desc}
+        {'  '}
+      </Text>
+      {item.tooltip && (
+        <Text strong>
+          <Tooltip
+            title={item.tooltip.map((e) => (
+              <>
+                {e}
+                <br />
+              </>
+            ))}
+          >
+            <QuestionCircleOutlined />
+          </Tooltip>
+        </Text>
+      )}
+    </Col>
+  );
 
   return (
     <Layout className="app">
@@ -73,52 +106,50 @@ const App = () => {
         </Col>
       </Row>
       <Content>
-        {['features', 'settings', 'experimental'].map((configKey) => {
-          return (
-            <>
-              <Divider className="divider">{settings[configKey].name}</Divider>
-              {settings[configKey].items.map((e) => {
-                return (
-                  <Row key={e.key}>
-                    <Col span={18}>
-                      <Text strong>
-                        {e.desc}
-                        {'  '}
-                      </Text>
-                      {e.tooltip && (
-                        <Text strong>
-                          <Tooltip
-                            title={e.tooltip.map((e) => (
-                              <>
-                                {e}
-                                <br />
-                              </>
-                            ))}
-                          >
-                            <QuestionCircleOutlined />
-                          </Tooltip>
-                        </Text>
-                      )}
-                    </Col>
-                    <Col span={6}>
-                      {e.type === ConfigItemType.Switch ? (
+        <Collapse bordered={false} defaultActiveKey={['0']}>
+          {['features', 'settings', 'experimental'].map((configKey, index) => {
+            return (
+              <Panel header={configurations[configKey].name} key={index}>
+                {configurations[configKey].items.map((item) => {
+                  const value = config && config[item.key];
+                  return item.type === ConfigItemType.Switch ? (
+                    <Row key={item.key}>
+                      <ConfigItemCol item={item} width={18} />
+                      <Col span={6}>
                         <Switch
-                          checked={config && config[e.key]}
+                          size="small"
+                          checked={value}
                           defaultChecked
                           onClick={(checked: boolean) => {
-                            configOnChange({ key: e.key, value: checked });
+                            configOnChange({ key: item.key, value: checked });
                           }}
                         />
-                      ) : (
-                        <div>{config && config[e.key]}</div>
-                      )}
-                    </Col>
-                  </Row>
-                );
-              })}
-            </>
-          );
-        })}
+                      </Col>
+                    </Row>
+                  ) : (
+                    <Row key={item.key}>
+                      <ConfigItemCol item={item} width={24} />
+                      <Col span={24}>
+                        <Input.Search
+                          name={item.key}
+                          ref={inputEl}
+                          defaultValue={config && config['keywordRegex']}
+                          size="small"
+                          placeholder="支持正则表达式"
+                          enterButton="保存"
+                          onSearch={(event) => configOnChange({ key: item.key, value: event })}
+                        />
+                      </Col>
+                    </Row>
+                  );
+                })}
+              </Panel>
+            );
+          })}
+        </Collapse>
+      </Content>
+      <Content>
+        {/* Buttons */}
         <Row className="text-center">
           {[
             {
@@ -129,13 +160,18 @@ const App = () => {
               title: '恢复默认',
               onClick: resetConfig,
             },
+            // {
+            //   title: '刷新页面',
+            //   /* TODO: 刷新事件 */
+            //   onClick: undefined,
+            // },
           ].map((btn) => (
             <Col flex="1">
               <Button onClick={btn.onClick}>{btn.title}</Button>
             </Col>
           ))}
         </Row>
-        <Row>
+        <Row justify="center">
           {notification.length > 0 && (
             <Col>
               <Text type="danger">{notification}</Text>
@@ -143,6 +179,7 @@ const App = () => {
           )}
         </Row>
       </Content>
+      {/* Links */}
       <Footer className="footer">
         <Row>
           {links.map((e) => (
