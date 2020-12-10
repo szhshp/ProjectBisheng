@@ -94,10 +94,11 @@ const formatNode = (node: ChildNode, config: { [key: string]: string | boolean }
       /* Experimental Feature */
       if (
         config['keywordReplaceByChar'] === true &&
-        (config['keywordRegex'] as string).length > 0
+        (config['keywordRegex'] as string).length > 0 &&
+        (config['keywordRegexToReplace'] as string).length > 0
       ) {
         const regExp = new RegExp(config['keywordRegex'] as string, 'g');
-        formattedText = formattedText.replace(regExp, Array(5).fill('█').join(''));
+        formattedText = formattedText.replace(regExp, config['keywordRegexToReplace'] as string);
       }
 
       if (textValue !== formattedText) {
@@ -111,7 +112,8 @@ const formatNodes = (config: { [key: string]: string | boolean }) => {
   getAllTextNodes([document.documentElement]);
 
   textNodes.forEach((e) => formatNode(e, config));
-  if (DEBUG.ACTIVE) console.log('Fromated', textNodes.length);
+  if (DEBUG.ACTIVE) console.log('config: ', config);
+  if (DEBUG.ACTIVE) console.log('Formated', textNodes.length);
 };
 
 getStorage(SETUP.STORAGE_KEY, (res) => {

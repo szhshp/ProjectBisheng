@@ -38,6 +38,7 @@ export const defaultConfig: { [index: string]: any } = {
   keywordReplaceByChar: false,
   keywordReplaceByElem: false,
   keywordRegex: '肖战|丁真',
+  keywordRegexToReplace: '█████',
 };
 
 const configuration: AllConfigType = {
@@ -85,17 +86,6 @@ const configuration: AllConfigType = {
         desc: '是否在中文和英文之间添加空格',
         type: ConfigItemType.Switch,
       },
-    ],
-  },
-  settings: {
-    name: '设置',
-    items: [
-      {
-        key: 'autoFormat',
-        desc: '对所有页面自动格式化',
-        tooltip: ['对所有新打开的页面格式化'],
-        type: ConfigItemType.Switch,
-      },
       {
         key: 'useSimpleQuotation',
         desc: '保持英文引号',
@@ -108,12 +98,23 @@ const configuration: AllConfigType = {
       },
     ],
   },
+  settings: {
+    name: '设置',
+    items: [
+      {
+        key: 'autoFormat',
+        desc: '对所有页面自动格式化',
+        tooltip: ['对所有新打开的页面格式化'],
+        type: ConfigItemType.Switch,
+      },
+    ],
+  },
   experimental: {
     name: '实验性功能',
     items: [
       {
         key: 'keywordReplaceByChar',
-        desc: '隐藏关键字',
+        desc: '主开关 隐藏关键字',
         tooltip: ['全网站可搜索的文本中，含有设置的关键字的文本将会被遮挡'],
         type: ConfigItemType.Switch,
       },
@@ -125,7 +126,13 @@ const configuration: AllConfigType = {
       },
       {
         key: 'keywordRegex',
-        desc: '关键字',
+        desc: '关键字 (支持正则表达式)',
+        type: ConfigItemType.TextBox,
+      },
+      {
+        key: 'keywordRegexToReplace',
+        desc: '用于替换的关键字',
+        tooltip: ['要不要试试把肖战替换成特朗普😂'],
         type: ConfigItemType.TextBox,
       },
     ],

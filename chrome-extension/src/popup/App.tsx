@@ -46,7 +46,7 @@ const App = () => {
   const resetConfig = () => {
     resetStorage();
     setConfig(defaultConfig);
-    setNotification('请刷新页面以新配置格式化');
+    setNotification('设置已重置');
   };
 
   const formatDocument = async () => {
@@ -59,18 +59,20 @@ const App = () => {
       });
   };
 
-  const configOnChange = ({ key, value }: { key: string; value: any }) => {
+  const changeConfig = ({ key, value }: { key: string; value: any }) => {
+    debugger;
     const _config = { ...config };
     _config[key] = value;
     setConfig(_config);
     if (DEBUG.ACTIVE) console.log('_config: ', _config);
+  };
 
+  const saveConfig = () => {
     const _storage: { [key: string]: any } = {};
-    _storage[SETUP.STORAGE_KEY] = _config;
+    _storage[SETUP.STORAGE_KEY] = config;
     saveToStorage(_storage);
     if (DEBUG.ACTIVE) console.log('_storage: ', _storage);
-
-    setNotification('请刷新页面以新配置格式化');
+    location.reload();
   };
 
   const ConfigItemCol = ({ item, width }: { item: ConfigItem; width: number }) => (
@@ -111,9 +113,10 @@ const App = () => {
             return (
               <Panel header={configurations[configKey].name} key={index}>
                 {configurations[configKey].items.map((item) => {
-                  const value = config && config[item.key];
+                  const key = item.key;
+                  const value = config && config[key];
                   return item.type === ConfigItemType.Switch ? (
-                    <Row key={item.key}>
+                    <Row key={key}>
                       <ConfigItemCol item={item} width={18} />
                       <Col span={6}>
                         <Switch
@@ -121,23 +124,21 @@ const App = () => {
                           checked={value}
                           defaultChecked
                           onClick={(checked: boolean) => {
-                            configOnChange({ key: item.key, value: checked });
+                            changeConfig({ key, value: checked });
                           }}
                         />
                       </Col>
                     </Row>
                   ) : (
-                    <Row key={item.key}>
+                    <Row key={key}>
                       <ConfigItemCol item={item} width={24} />
                       <Col span={24}>
-                        <Input.Search
-                          name={item.key}
+                        <Input
+                          name={key}
                           ref={inputEl}
-                          defaultValue={config && config['keywordRegex']}
+                          value={config && config[key]}
                           size="small"
-                          placeholder="支持正则表达式"
-                          enterButton="保存"
-                          onSearch={(event) => configOnChange({ key: item.key, value: event })}
+                          onChange={(event) => changeConfig({ key, value: event.target.value })}
                         />
                       </Col>
                     </Row>
@@ -153,6 +154,10 @@ const App = () => {
         <Row className="text-center">
           {[
             {
+              title: '保存',
+              onClick: saveConfig,
+            },
+            {
               title: '手动激活',
               onClick: formatDocument,
             },
@@ -160,11 +165,6 @@ const App = () => {
               title: '恢复默认',
               onClick: resetConfig,
             },
-            // {
-            //   title: '刷新页面',
-            //   /* TODO: 刷新事件 */
-            //   onClick: undefined,
-            // },
           ].map((btn) => (
             <Col flex="1">
               <Button onClick={btn.onClick}>{btn.title}</Button>
