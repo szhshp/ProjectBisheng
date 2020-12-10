@@ -37,7 +37,7 @@ export const defaultConfig: { [index: string]: any } = {
   /* Experiment Feature  */
   keywordReplaceByChar: false,
   keywordReplaceByElem: false,
-  keywordRegex: '肖战|丁真|求职|招聘',
+  keywordRegex: '肖战|丁真',
 };
 
 const configuration: AllConfigType = {
