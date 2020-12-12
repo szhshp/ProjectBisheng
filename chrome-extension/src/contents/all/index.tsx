@@ -82,36 +82,35 @@ const formatNode = (node: ChildNode, config: { [key: string]: string | boolean }
           markdownLinksInFullWidth: false,
           boldTextBlock: false,
           blankLines: false,
-          duplicatedPunctuations: config['duplicatedPunctuations'] === true,
-          fullWidthCharsAndFollowingSpaces: config['fullWidthCharsAndFollowingSpaces'] === true,
+          duplicatedPunctuations: config.duplicatedPunctuations === true,
+          fullWidthCharsAndFollowingSpaces: config.fullWidthCharsAndFollowingSpaces === true,
           addSpacesBetweenChineseCharAndAlphabeticalChar:
-            config['addSpacesBetweenChineseCharAndAlphabeticalChar'] === true,
-          halfWidthCharsAndFollowingSpaces: config['halfWidthCharsAndFollowingSpaces'] === true,
+            config.addSpacesBetweenChineseCharAndAlphabeticalChar === true,
+          halfWidthCharsAndFollowingSpaces: config.halfWidthCharsAndFollowingSpaces === true,
         },
       };
       formattedText = bishengFormat(textValue, bishengConfig);
-
-      const keywordRegex = config['keywordRegex'] as string;
-      const keywordRegexToReplace = config['keywordRegexToReplace'] as string;
+      const keywordRegex = config.keywordRegex as string;
+      const keywordRegexToReplace = config.keywordRegexToReplace as string;
 
       /* Experimental Feature */
       if (keywordRegex.length > 0) {
-        const regExp = new RegExp(config['keywordRegex'] as string, 'g');
+        const regExp = new RegExp(config.keywordRegex as string, 'g');
 
         const matched = formattedText.match(regExp);
         if (matched !== null) {
-          if (config['keywordReplaceByElem'] === true) {
+          if (config.keywordReplaceByElem === true) {
             /* Hide parent elem */
             _node.parentElement?.classList.add('bisheng_hide');
           }
 
-          if (config['keywordReplaceByChar'] === true) {
+          if (config.keywordReplaceByChar === true) {
             /* Replace keywords */
             formattedText = formattedText.replace(
               regExp,
               keywordRegexToReplace.length > 0
                 ? keywordRegexToReplace
-                : Array(matched[0].length).fill('█').join(''),
+                : new Array(matched[0].length).fill('█').join(''),
             );
           }
         }
@@ -128,7 +127,7 @@ const formatNodes = (config: { [key: string]: string | boolean }) => {
   getAllTextNodes([document.documentElement]);
 
   textNodes.forEach((e) => formatNode(e, config));
-  if (DEBUG.ACTIVE) console.log('config: ', config);
+  if (DEBUG.ACTIVE) console.log('config:', config);
   if (DEBUG.ACTIVE) console.log('Formated', textNodes.length);
 };
 
