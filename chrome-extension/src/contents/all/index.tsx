@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { bishengFormat } from 'bisheng-formatter-core';
 import { debounce } from 'lodash';
 import { defaultConfig } from '../../constants/config';
@@ -11,9 +12,9 @@ const DEBUG = {
   KEYWORD: '',
 };
 
-const textNodes: ChildNode[] = [];
+let textNodes: Node[] = [];
 
-const getAllTextNodes = (nodes: HTMLElement[] | ChildNode[]) => {
+const getAllTextNodes = (nodes: Node[]) => {
   nodes.forEach((node) => {
     if (node instanceof HTMLElement) {
       if (
@@ -38,25 +39,7 @@ const getAllTextNodes = (nodes: HTMLElement[] | ChildNode[]) => {
   });
 };
 
-export const activeAutoFormat = (config: { [key: string]: string | boolean }) => {
-  const debouncedFormat = debounce(formatNodes, 1000);
-  const mutationHandler: MutationCallback = (mutationList) => {
-    mutationList.forEach(() => {
-      debouncedFormat(config);
-    });
-  };
-
-  const observerOptions = {
-    childList: true,
-    subtree: true,
-  };
-
-  const observer = new MutationObserver(mutationHandler);
-  observer.observe(document.body, observerOptions);
-  debouncedFormat(config);
-};
-
-const formatNode = (node: ChildNode, config: { [key: string]: string | boolean }) => {
+const formatNode = (node: Node, config: { [key: string]: string | boolean }) => {
   if (node.hasChildNodes()) return;
   const _node = node;
   let formattedText = '';
@@ -123,12 +106,40 @@ const formatNode = (node: ChildNode, config: { [key: string]: string | boolean }
   }
 };
 
+export const activeAutoFormat = (config: { [key: string]: string | boolean }): void => {
+  const debouncedFormatNodes = debounce(formatNodes, 3000);
+
+  const mutationHandler: MutationCallback = (mutationList) => {
+    const addedNodeLists = mutationList.map((mutation) => mutation.addedNodes);
+
+    addedNodeLists.forEach((addedNodeList) => {
+      [...addedNodeList].forEach((e) => textNodes.push(e));
+    });
+
+    /* Trigger the invoke when mutated */
+    debouncedFormatNodes(config);
+  };
+
+  const observer = new MutationObserver(mutationHandler);
+
+  /* Mutation Observe Start: collect all new nodes */
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+
+  /* Trigger the first invoke */
+  debouncedFormatNodes(config);
+};
+
 const formatNodes = (config: { [key: string]: string | boolean }) => {
   getAllTextNodes([document.documentElement]);
 
   textNodes.forEach((e) => formatNode(e, config));
   if (DEBUG.ACTIVE) console.log('config:', config);
   if (DEBUG.ACTIVE) console.log('Formated', textNodes.length);
+  /* Clear the nodes after formatted */
+  textNodes = [];
 };
 
 getStorage(SETUP.STORAGE_KEY, (res) => {
