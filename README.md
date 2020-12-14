@@ -43,34 +43,35 @@
 <details>
 <summary>TODO</summary>
 
-* [ ] Main Readme
-* [x] .gitignore
-* [x] Logo
-* [ ] Option Page
-* [x] 核心功能
+* Common
+  * [ ] Main Readme
+  * [x] .gitignore
+  * [x] Logo
+* Core
+  * [ ] Option Page
   + [x] 繁体支持
   + [x] 符号与英文之间添加空格 (可选)
   + [ ] 支持英文符号替换后添加更多空格
-* [x] NPM
+* NPM
   + [x] NPM Release
   + [ ] NPM Release Ignore
-* [ ] VSC Extension
+* VSC Extension
   + [x] Release VSC Market
   + [x] Ext Icon
   + [x] Hotkey
     - [ ] ~~Format on save~~
   + [x] Options
   + [x] Format Selected
-  + [ ] Mac Compatibile
-* [ ] Web Version 
+  + [ ] Mac Compatibility
+* Web Version 
   + [ ] ~~Format on save~~
   + [ ] Options
-* [ ] Chrome Extension
+* Chrome Extension
   + [x] Format on tab open
   + [x] Core Feature
   + [x] Configuration
     - [x] Sync Config
-    - [x] Optional `font-family`
+    - [x] Optional `font-family` 
   + [ ] Logo
   + [x] Activate on load
   + [ ] Whitelist & Black List
@@ -78,7 +79,7 @@
   + [x] ReadMe
   + [ ] Release
     - [ ] Build Alpha
-    - [ ] Release to Google
+    - [ ] ~~Release to Google~~
 
 </details>
 
