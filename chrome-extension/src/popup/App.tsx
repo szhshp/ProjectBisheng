@@ -17,7 +17,7 @@ import { getStorage, resetStorage, saveToStorage } from '../utils/configManager'
 import { getActiveTab } from '../utils/tabManager';
 
 const DEBUG = {
-  ACTIVE: true,
+  ACTIVE: false,
 };
 
 const { Footer, Content } = Layout;

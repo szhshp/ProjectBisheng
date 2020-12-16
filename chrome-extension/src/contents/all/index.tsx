@@ -8,7 +8,7 @@ import { getStorage } from '../../utils/configManager';
 import './style.scss';
 
 const DEBUG = {
-  ACTIVE: true,
+  ACTIVE: false,
   KEYWORD: '',
 };
 
