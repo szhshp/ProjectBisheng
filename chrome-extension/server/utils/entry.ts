@@ -20,7 +20,7 @@ const devEntry: Record<string, string[]> = {
 };
 const prodEntry: Record<string, string[]> = {
     background: [backgroundPath],
-    options: [optionsPath],
+    // options: [optionsPath],
     popup: [popupPath],
 };
 const entry = __DEV__ ? devEntry : prodEntry;

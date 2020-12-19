@@ -6,8 +6,8 @@ import App from './App';
 import './App.scss';
 
 ReactDOM.render(
-    <HashRouter>
-        <App />
-    </HashRouter>,
-    document.querySelector('#root'),
+  <HashRouter>
+    <App />
+  </HashRouter>,
+  document.querySelector('#root'),
 );

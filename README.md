@@ -73,7 +73,7 @@
   + [x] Configuration
     - [x] Sync Config
     - [x] Optional `font-family` 
-  + [ ] Logo
+  + [x] Logo
   + [x] Activate on load
   + [ ] Whitelist & Black List
   + [ ] Version Desc
