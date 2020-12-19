@@ -47,14 +47,15 @@
   * [ ] Main Readme
   * [x] .gitignore
   * [x] Logo
-* Core
-  * [ ] Option Page
-  + [x] 繁体支持
-  + [x] 符号与英文之间添加空格 (可选)
-  + [ ] 支持英文符号替换后添加更多空格
-* NPM
-  + [x] NPM Release
-  + [ ] NPM Release Ignore
+* Core & NPM
+  * Core
+    * [x] Option Page
+    + [x] 繁体支持
+    + [x] 符号与英文之间添加空格 (可选)
+    + [ ] 支持英文符号替换后添加更多空格
+  + NPM
+    + [x] NPM Release
+    + [x] NPM Release Ignore
 * VSC Extension
   + [x] Release VSC Market
   + [x] Ext Icon
@@ -62,7 +63,7 @@
     - [ ] ~~Format on save~~
   + [x] Options
   + [x] Format Selected
-  + [ ] Mac Compatibility
+  + [ ] Mac VSC Compatibility
 * Web Version 
   + [ ] ~~Format on save~~
   + [ ] Options
