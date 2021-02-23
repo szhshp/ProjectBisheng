@@ -12,14 +12,14 @@
 <div align=center><img src="./assets/logo.png"/></div>
 
 <p align="center">
-  <img src="https://img.shields.io/npm/v/bisheng-formatter-core"/>
+ <img src="https://img.shields.io/npm/v/bisheng-formatter-core"/>
 
-  <br/>
-  <img src="https://img.shields.io/badge/link-996.icu-red.svg"/>
-  <img src="https://img.shields.io/badge/license-Anti%20996-blue.svg"/>
+ <br/>
+ <img src="https://img.shields.io/badge/link-996.icu-red.svg"/>
+ <img src="https://img.shields.io/badge/license-Anti%20996-blue.svg"/>
 
-    <br/>
-      <img src="https://img.shields.io/github/languages/top/szhielelp/ProjectBisheng"/>
+ <br/>
+ <img src="https://img.shields.io/github/languages/top/szhielelp/ProjectBisheng"/>
 
   <img src="https://img.shields.io/badge/License-MIT-orange"/>
 <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/szhielelp/ProjectBisheng">
@@ -47,14 +47,15 @@
   * [ ] Main Readme
   * [x] .gitignore
   * [x] Logo
-* Core
-  * [ ] Option Page
-  + [x] 繁体支持
-  + [x] 符号与英文之间添加空格 (可选)
-  + [ ] 支持英文符号替换后添加更多空格
-* NPM
-  + [x] NPM Release
-  + [ ] NPM Release Ignore
+* Core & NPM
+  * Core
+    * [x] Option Page
+    + [x] 繁体支持
+    + [x] 符号与英文之间添加空格 (可选)
+    + [ ] 支持英文符号替换后添加更多空格
+  + NPM
+    + [x] NPM Release
+    + [x] NPM Release Ignore
 * VSC Extension
   + [x] Release VSC Market
   + [x] Ext Icon
@@ -62,7 +63,7 @@
     - [ ] ~~Format on save~~
   + [x] Options
   + [x] Format Selected
-  + [ ] Mac Compatibility
+  + [ ] Mac VSC Compatibility
 * Web Version 
   + [ ] ~~Format on save~~
   + [ ] Options
@@ -72,7 +73,7 @@
   + [x] Configuration
     - [x] Sync Config
     - [x] Optional `font-family` 
-  + [ ] Logo
+  + [x] Logo
   + [x] Activate on load
   + [ ] Whitelist & Black List
   + [ ] Version Desc
