@@ -44,10 +44,7 @@ const DEBUG_SINGLE_SCHEMA: string = "boldTextBlock";
  * @name replacePunctuations
  * @desc Add extra space after punctuations
  */
-export const biShengFormat = (
-  content: string,
-  config: BishengMainConfig
-): string => {
+export const biShengFormat = (content: string, config?: BishengMainConfig): string => {
   const ellipsisCount = config?.ellipsisCount || 3;
   const useSimpleQuotation = config?.useSimpleQuotation;
   const mainFeature: BishengMainFeature = config?.mainFeature || {
@@ -182,6 +179,6 @@ export const biShengFormat = (
   return content;
 };
 
-export const format = (content: string, config: BishengMainConfig): string => {
+export const format = (content: string, config?: BishengMainConfig): string => {
   return biShengFormat(content, config);
 };
