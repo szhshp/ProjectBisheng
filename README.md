@@ -33,8 +33,9 @@
 
 这个项目包含以下部分:
 
-* [NPM 包](https://github.com/szhielelp/ProjectBisheng/tree/main/core)
+* [NPM Package](https://github.com/szhielelp/ProjectBisheng/tree/main/core)
 * [VSC 插件](https://github.com/szhielelp/ProjectBisheng/tree/main/vscode-extension)
+* [Deno Package](https://github.com/szhielelp/ProjectBisheng/tree/main/deno)
 * [网页版](https://project-bisheng.vercel.app/)
 * Chrome 插件 (开发中)
 
@@ -48,7 +49,7 @@
   * [x] .gitignore
   * [x] Logo
 * Core & NPM
-  * Core
+  * Node
     * [x] Option Page
     + [x] 繁体支持
     + [x] 符号与英文之间添加空格 (可选)
@@ -56,6 +57,8 @@
   + NPM
     + [x] NPM Release
     + [x] NPM Release Ignore
++ Deno (Experimental)
+  + [x] Main Feature
 * VSC Extension
   + [x] Release VSC Market
   + [x] Ext Icon
