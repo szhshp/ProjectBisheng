@@ -10,7 +10,7 @@
 `test.ts`
 
 ```ts
-import { bishengFormat } from "https://deno.land/x/project_bisheng@0.2s/index.ts";
+import { bishengFormat } from "https://deno.land/x/project_bisheng@0.2/index.ts";
 console.log(
   bishengFormat(
     "测试一下这段文字. 如果只看到三个感叹号那就成功了!!!!！！！!!!!"
