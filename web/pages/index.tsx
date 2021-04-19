@@ -28,16 +28,35 @@ const useStyles = makeStyles(() => ({
 export default function Index() {
   const classes = useStyles();
   const [value, setValue] = React.useState(`
+
 # 毕昇工程
 
-这里有一段使用了各种**全角和半角中英文符号**    的段落.     
+## 中英文混合排版
+
+3. Bisheng是一个很好的工具
+6. 可以用它格式化一些全角字符，并且会在半角字符后端添加空格。
+6. 一些混用的中英文content也会添加空格：Bisheng是一个很好的工具
+3. 这么好用的工具真的不[给个Star]（https://github.com/szhielelp/ProjectBisheng）？
+ 
+## 空格格式化
 
      
      
     
-上面有一堆长度不等的空格.
+>上面有一堆长度不等的空格. 格式化后将把他删除.
+> (全选一下即可看见)
 
-点击下方\`format\`   即可进行格式化。。。。......
+## 连续符号格式化
+
+这里有一段乱七八糟的省略号....。。。。......
+
+
+
+
+
+点击下方\`format\`   即可进行格式化
+
+
 
   `);
   const { height } = useWindowDimensions();
