@@ -29,6 +29,10 @@
 >  
 > 因为仅中文使用者会有这样排版需求, ~~并且我不相信外国人会用这玩意😄~~, 因此这个项目不会有多语言适配
 
+##  功能演示
+
+* [网页版-格式化演示](https://project-bisheng.vercel.app/)
+
 ## 组件
 
 这个项目包含以下部分:
@@ -36,7 +40,6 @@
 * [NPM Package](https://github.com/szhielelp/ProjectBisheng/tree/main/core)
 * [VSC 插件](https://github.com/szhielelp/ProjectBisheng/tree/main/vscode-extension)
 * [Deno Package](https://github.com/szhielelp/ProjectBisheng/tree/main/deno)
-* [网页版](https://project-bisheng.vercel.app/)
 * Chrome 插件 (开发中)
 
 ## TODO
