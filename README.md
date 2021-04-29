@@ -27,15 +27,19 @@
 
 > '毕昇' - 中英文混排工具, 适用于中英文混合排版
 >  
-> 因为仅中文使用者会有这样排版需求, ~~并且我不相信外国人会用这玩意😄~~, 此项目不会有多语言适配
+> 因为仅中文使用者会有这样排版需求, ~~并且我不相信外国人会用这玩意😄~~, 因此这个项目不会有多语言适配
+
+##  功能演示
+
+* [网页版-格式化演示](https://project-bisheng.vercel.app/)
 
 ## 组件
 
 这个项目包含以下部分:
 
-* [NPM 包](https://github.com/szhielelp/ProjectBisheng/tree/main/core)
+* [NPM Package](https://github.com/szhielelp/ProjectBisheng/tree/main/core)
 * [VSC 插件](https://github.com/szhielelp/ProjectBisheng/tree/main/vscode-extension)
-* [网页版](https://project-bisheng.vercel.app/)
+* [Deno Package](https://github.com/szhielelp/ProjectBisheng/tree/main/deno)
 * Chrome 插件 (开发中)
 
 ## TODO
@@ -48,7 +52,7 @@
   * [x] .gitignore
   * [x] Logo
 * Core & NPM
-  * Core
+  * Node
     * [x] Option Page
     + [x] 繁体支持
     + [x] 符号与英文之间添加空格 (可选)
@@ -56,6 +60,8 @@
   + NPM
     + [x] NPM Release
     + [x] NPM Release Ignore
++ Deno (Experimental)
+  + [x] Main Feature
 * VSC Extension
   + [x] Release VSC Market
   + [x] Ext Icon
