@@ -48,7 +48,7 @@
 <summary>TODO</summary>
 
 * Common
-  * [ ] Main Readme
+  * [x] Main Readme
   * [x] .gitignore
   * [x] Logo
 * Core & NPM

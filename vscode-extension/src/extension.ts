@@ -1,8 +1,6 @@
 import * as vscode from "vscode";
 import { bishengFormat } from "bisheng-formatter-core";
-import {
-  BishengMainFeature,
-} from "bisheng-formatter-core/dist/types";
+import { BishengMainFeature } from "bisheng-formatter-core/dist/types";
 
 const DEBUG = 0;
 
@@ -34,16 +32,15 @@ const formatContent = ({
 
   const mainFeature: BishengMainFeature =
     vscode.workspace.getConfiguration().get("mainFeature") || {};
-  const useSimpleQuotation: boolean = vscode.workspace
-    .getConfiguration()
-    .get("general.useSimpleQuotation") || false;
+  const useSimpleQuotation: boolean =
+    vscode.workspace.getConfiguration().get("general.useSimpleQuotation") ||
+    false;
 
   /* Format the content */
   const formattedContent = bishengFormat(contentToFormat, {
     mainFeature,
     useSimpleQuotation,
   });
-  
 
   if (DEBUG) {
     console.log("After Format");
@@ -55,34 +52,28 @@ const formatContent = ({
 
 const main = (editor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
   const doc = editor.document;
-  if (["markdown", "plaintext"].indexOf(doc.languageId) > -1) {
-    // let editor = vscode.window.activeTextEditor;
-    const selections = editor.selections;
+  // let editor = vscode.window.activeTextEditor;
+  const selections = editor.selections;
 
-    if (selections.filter((selection) => !selection.isEmpty).length > 0) {
-      selections.forEach((selection) => {
-        formatContent({
-          range: new vscode.Range(selection.start, selection.end),
-          doc,
-          edit,
-        });
-      });
-      vscode.window.showInformationMessage(
-        "BiSheng Formatter: Selected Text Formatted"
-      );
-    } else {
+  if (selections.filter((selection) => !selection.isEmpty).length > 0) {
+    selections.forEach((selection) => {
       formatContent({
-        range: getFullRange(doc),
+        range: new vscode.Range(selection.start, selection.end),
         doc,
         edit,
       });
-      vscode.window.showInformationMessage(
-        "BiSheng Formatter: Document Formatted"
-      );
-    }
-  } else {
+    });
     vscode.window.showInformationMessage(
-      "BiSheng Formatter: Try to run Formatter in Markdown or PlainText"
+      "BiSheng Formatter: Selected Text Formatted"
+    );
+  } else {
+    formatContent({
+      range: getFullRange(doc),
+      doc,
+      edit,
+    });
+    vscode.window.showInformationMessage(
+      "BiSheng Formatter: Document Formatted"
     );
   }
 };

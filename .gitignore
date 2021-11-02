@@ -1,5 +1,8 @@
 /core/dist
 node_modules
 /vscode-extension/dist
+/vscode-extension/.vscode-test
+/vscode-extension/out
 build
 Bisheng-Core-Run Build.bat
+*.vsix
