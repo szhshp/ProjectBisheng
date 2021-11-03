@@ -1,4 +1,3 @@
-> (开发进行中)
 
 <h1 align="center">
   <a href="https://github.com/szhielelp/ProjectBisheng">
@@ -40,7 +39,7 @@
 * [NPM Package](https://github.com/szhielelp/ProjectBisheng/tree/main/core)
 * [VSC 插件](https://github.com/szhielelp/ProjectBisheng/tree/main/vscode-extension)
 * [Deno Package](https://github.com/szhielelp/ProjectBisheng/tree/main/deno)
-* Chrome 插件 (开发中)
+* ~~Chrome 插件~~ (不想写了)
 
 ## TODO
 

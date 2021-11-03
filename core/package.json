@@ -7,9 +7,7 @@
   "license": "MIT",
   "repository": "https://github.com/szhielelp/ProjectBisheng",
   "scripts": {
-    "prepublish": "rimraf dist && yarn run build",
-    "build": "tsc && yarn run testDist",
-    "testDist": "node ./_scripts/TestDist.js",
+    "build": "rimraf dist && tsc",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
     "watch": "jest --watch",
