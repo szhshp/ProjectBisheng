@@ -1,18 +1,7 @@
-# Project Bisheng - VSC Extension
 
-> '毕昇'-Markdown 中英文混排工具的 VSC 插件
 
-- [Project Bisheng - VSC Extension](#project-bisheng---vsc-extension)
-  - [Usage](#usage)
-  - [Config](#config)
-  - [Contribute](#contribute)
-    - [Dev](#dev)
-    - [Publish](#publish)
-      - [Troubleshooting](#troubleshooting)
-        - [Access Denied](#access-denied)
-        - [401 Error](#401-error)
 
-## Usage
+# TLDR: Usage
 
 以下两种方法皆可:
 
@@ -20,6 +9,11 @@
 2. `Ctrl + Alt + B`
 
 即可格式化 **选中的文字** (或当前编辑的整个文件)
+
+
+---------------------
+
+# Project Bisheng - VSC Extension
 
 ## Config
 
