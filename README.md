@@ -24,7 +24,7 @@
 <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/szhshp/ProjectBisheng">
 </p>
 
-> '毕昇' - 中英文混排工具, 适用于中英文混合排版
+> '毕昇' - 中英文混排工具
 >  
 > 因为仅中文使用者会有这样排版需求, ~~并且我不相信外国人会用这玩意😄~~, 因此这个项目不会有多语言适配
 
@@ -39,7 +39,7 @@
 * [NPM Package](https://github.com/szhshp/ProjectBisheng/tree/main/core)
 * [VSC 插件](https://github.com/szhshp/ProjectBisheng/tree/main/vscode-extension)
 * [Deno Package](https://github.com/szhshp/ProjectBisheng/tree/main/deno)
-* ~~Chrome 插件~~ (不想写了)
+* ~~Chrome 插件~~ (太懒了不想写了)
 
 ## TODO
 
