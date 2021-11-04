@@ -3,7 +3,7 @@
 
 # TLDR: Usage
 
-![](https://github.com/szhielelp/ProjectBisheng/blob/05576265a11bc0c5a6dc8af46ce2f741e1ed1577/vscode-extension/assets/demo.gif)
+![](./assets/demo.gif)
 
 以下两种方法皆可:
 
