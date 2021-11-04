@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "",
   "private": true,
-  "author": "szhielelp",
+  "author": "szhshp",
   "license": "MIT",
   "scripts": {
     "start": "cross-env-shell NODE_ENV=development ts-node --files -P ./server/tsconfig.json ./server",

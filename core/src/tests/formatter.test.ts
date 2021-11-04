@@ -314,7 +314,7 @@ const szhshp = "cool"
         before: `
 # 关于Pages发布后很多文件404错误
 
-Github发布之后发现JS,CSS全部404,因为发布的 URL 是 \`https://szhielelp.github.io/ProjectGaia/\` 然而 JS 和 CSS 放到了根目录下面 \`https://szhielelp.github.io/js/\`
+Github发布之后发现JS,CSS全部404,因为发布的 URL 是 \`https://szhshp.github.io/ProjectGaia/\` 然而 JS 和 CSS 放到了根目录下面 \`https://szhshp.github.io/js/\`
 
 ## Solution 1
 
@@ -330,7 +330,7 @@ Coding Pages不需要这样处理`,
         after: `
 # 关于 Pages 发布后很多文件 404 错误
 
-Github 发布之后发现 JS, CSS 全部 404, 因为发布的 URL 是 \`https://szhielelp.github.io/ProjectGaia/\` 然而 JS 和 CSS 放到了根目录下面 \`https://szhielelp.github.io/js/\` 
+Github 发布之后发现 JS, CSS 全部 404, 因为发布的 URL 是 \`https://szhshp.github.io/ProjectGaia/\` 然而 JS 和 CSS 放到了根目录下面 \`https://szhshp.github.io/js/\` 
 
 ## Solution 1
 

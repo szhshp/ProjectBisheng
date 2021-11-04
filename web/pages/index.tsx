@@ -36,7 +36,7 @@ export default function Index() {
 3. Bisheng是一个很好的工具
 6. 可以用它格式化一些全角字符，并且会在半角字符后端添加空格。
 6. 一些混用的中英文content也会添加空格：Bisheng是一个很好的工具
-3. 这么好用的工具真的不[给个Star]（https://github.com/szhielelp/ProjectBisheng）？
+3. 这么好用的工具真的不[给个Star]（https://github.com/szhshp/ProjectBisheng）？
  
 ## 空格格式化
 

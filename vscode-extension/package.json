@@ -3,7 +3,7 @@
   "displayName": "Bisheng Markdown Formatter",
   "description": "毕昇 - Markdown 中英文混排工具的 VSC 插件实现",
   "version": "0.2.17",
-  "repository": "https://github.com/szhielelp/ProjectBisheng",
+  "repository": "https://github.com/szhshp/ProjectBisheng",
   "engines": {
     "vscode": "^1.51.0"
   },

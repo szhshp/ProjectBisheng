@@ -5,7 +5,7 @@
   "types": "./dist/index.d.ts",
   "author": "szhshp",
   "license": "MIT",
-  "repository": "https://github.com/szhielelp/ProjectBisheng",
+  "repository": "https://github.com/szhshp/ProjectBisheng",
   "scripts": {
     "build": "rimraf dist && tsc",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",

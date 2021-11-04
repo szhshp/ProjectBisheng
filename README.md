@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  <a href="https://github.com/szhielelp/ProjectBisheng">
+  <a href="https://github.com/szhshp/ProjectBisheng">
 
     毕昇工程
 
@@ -18,10 +18,10 @@
  <img src="https://img.shields.io/badge/license-Anti%20996-blue.svg"/>
 
  <br/>
- <img src="https://img.shields.io/github/languages/top/szhielelp/ProjectBisheng"/>
+ <img src="https://img.shields.io/github/languages/top/szhshp/ProjectBisheng"/>
 
   <img src="https://img.shields.io/badge/License-MIT-orange"/>
-<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/szhielelp/ProjectBisheng">
+<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/szhshp/ProjectBisheng">
 </p>
 
 > '毕昇' - 中英文混排工具, 适用于中英文混合排版
@@ -36,9 +36,9 @@
 
 这个项目包含以下部分:
 
-* [NPM Package](https://github.com/szhielelp/ProjectBisheng/tree/main/core)
-* [VSC 插件](https://github.com/szhielelp/ProjectBisheng/tree/main/vscode-extension)
-* [Deno Package](https://github.com/szhielelp/ProjectBisheng/tree/main/deno)
+* [NPM Package](https://github.com/szhshp/ProjectBisheng/tree/main/core)
+* [VSC 插件](https://github.com/szhshp/ProjectBisheng/tree/main/vscode-extension)
+* [Deno Package](https://github.com/szhshp/ProjectBisheng/tree/main/deno)
 * ~~Chrome 插件~~ (不想写了)
 
 ## TODO

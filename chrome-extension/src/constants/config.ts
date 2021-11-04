@@ -142,7 +142,7 @@ const configuration: AllConfigType = {
 export const links: LinkType[] = [
   {
     title: 'Github',
-    link: 'https://github.com/szhielelp/ProjectBisheng',
+    link: 'https://github.com/szhshp/ProjectBisheng',
   },
   {
     title: 'Blog',

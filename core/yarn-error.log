@@ -24,7 +24,7 @@ npm manifest:
     "types": "./dist/index.d.ts",
     "author": "szhshp",
     "license": "MIT",
-    "repository": "https://github.com/szhielelp/ProjectBisheng",
+    "repository": "https://github.com/szhshp/ProjectBisheng",
     "scripts": {
       "prepublish": "rimraf dist && tsc && yarn run build",
       "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
