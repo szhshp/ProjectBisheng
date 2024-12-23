@@ -1,6 +1,6 @@
 {
   "name": "bisheng-formatter-core",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "author": "szhshp",
@@ -32,5 +32,8 @@
     "ts-node-dev": "^1.0.0-pre.49",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^5.7.2"
+  },
+  "bin": {
+    "bisheng-formatter-core": "./dist/bin/cli.js"
   }
 }
