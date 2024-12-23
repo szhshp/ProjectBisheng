@@ -1,38 +1,5 @@
 # Project Bisheng - NPM Package
 
-> '毕昇'-中英文混排工具核心 NPM 包
-
-- [Project Bisheng - NPM Package](#project-bisheng---npm-package)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [Configuration](#configuration)
-  - [Dev](#dev)
-  - [Feature Example](#feature-example)
-    - [boldTextBlock = true](#boldtextblock--true)
-    - [duplicatedPunctuations = true](#duplicatedpunctuations--true)
-    - [fullWidthCharsAndFollowingSpaces = true](#fullwidthcharsandfollowingspaces--true)
-    - [halfWidthCharsAndFollowingSpaces = true](#halfwidthcharsandfollowingspaces--true)
-    - [ellipsisCount = 6](#ellipsiscount--6)
-    - [useSimpleQuotation = true](#usesimplequotation--true)
-
-## Installation
-
-``` 
-npm i bisheng-formatter-core -S
-yarn add bisheng-formatter-core -S
-```
-
-## Usage
-
-``` js
-import { bishengFormat } from "bisheng-formatter-core";
-
-const str = "在这里可以放上一堆 CN 和 EN 混排的文本. ";
-
-const formattedContent = bishengFormat(str)
-console.log(formattedContent);
-```
-
 ### Configuration
 
 
