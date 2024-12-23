@@ -26,9 +26,26 @@
 
 > '毕昇' - 中英文混排工具
 >  
-> 因为仅中文使用者会有这样排版需求, ~~并且我不相信外国人会用这玩意😄~~, 因此这个项目不会有多语言适配
+> 因为仅中文使用者会有这样排版需求, ~~并且我不相信 非母语中文的人 会用这玩意😄~~, 因此我懒得翻译了
 
-##  功能演示
+
+## TL'DR
+
+### CLI
+
+```sh
+npx bisheng-formatter-core {Your File}
+```
+
+### API
+
+```js
+import { bishengFormat } from "bisheng-formatter-core";
+const formattedContent = bishengFormat(str)
+console.log(formattedContent);
+```
+
+## 功能演示
 
 * [网页版-格式化演示](https://project-bisheng.vercel.app/)
 
@@ -36,10 +53,9 @@
 
 这个项目包含以下部分:
 
-* [NPM Package](https://github.com/szhshp/ProjectBisheng/tree/main/core)
-* [VSC 插件](https://github.com/szhshp/ProjectBisheng/tree/main/vscode-extension)
+* [Core](https://github.com/szhshp/ProjectBisheng/tree/main/core)
+* [VSC Extension](https://github.com/szhshp/ProjectBisheng/tree/main/vscode-extension)
 * [Deno Package](https://github.com/szhshp/ProjectBisheng/tree/main/deno)
-* ~~Chrome 插件~~ (太懒了不想写了)
 
 ## TODO
 
