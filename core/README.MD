@@ -8,8 +8,8 @@
     - [Configuration](#configuration)
   - [Dev](#dev)
   - [Feature Example](#feature-example)
-    - [markdownLinksInFullWidth = true](#markdownlinksinfullwidth--true)
-    - [blankLines = true](#blanklines--true)
+    - [boldTextBlock = true](#boldtextblock--true)
+    - [duplicatedPunctuations = true](#duplicatedpunctuations--true)
     - [fullWidthCharsAndFollowingSpaces = true](#fullwidthcharsandfollowingspaces--true)
     - [halfWidthCharsAndFollowingSpaces = true](#halfwidthcharsandfollowingspaces--true)
     - [ellipsisCount = 6](#ellipsiscount--6)
@@ -79,7 +79,8 @@ npm i
 
 
 ## Feature Example
-### markdownLinksInFullWidth = true
+
+### boldTextBlock = true
 
 ```
 是否在粗体两侧添加空格
@@ -88,7 +89,7 @@ before: 这里是**粗体**文本
 after: 这里是 **粗体** 文本
 ```
 
-### blankLines = true
+### duplicatedPunctuations = true
 
 
 ```
